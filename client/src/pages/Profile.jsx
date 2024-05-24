@@ -1,16 +1,18 @@
-import { useContext, useEffect } from "react";
+import React, { useContext, useEffect } from "react";
 import { UserContext } from "../../context/userContext";
 import { useNavigate } from "react-router-dom";
+import Login from "../pages/Login";
 
 export default function Profiles() {
-  const { user, logout, isLoggedIn } = useContext(UserContext);
+  const { user, logout, isLoggedIn, setIsLoggedIn } = useContext(UserContext);
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (!isLoggedIn) {
+    if (!isLoggedIn || !user) {
+      setIsLoggedIn(false);
       navigate("/login");
     }
-  }, [isLoggedIn, navigate]);
+  }, [isLoggedIn, navigate, user]);
 
   const handleLogout = () => {
     logout();
@@ -20,11 +22,13 @@ export default function Profiles() {
   return (
     <div>
       <h1>User Profile</h1>
-      {!!user && (
+      <p>Hi {user.name}</p>
+      {isLoggedIn ? (
         <div>
-          <h2>Hi {user.name}!</h2>
           <button onClick={handleLogout}>Logout</button>
         </div>
+      ) : (
+        <Login setIsLoggedIn={setIsLoggedIn} />
       )}
     </div>
   );

@@ -20,11 +20,12 @@ app.use(
 );
 app.use(cookieParser());
 
-//database connection
+// Database connection
 mongoose
   .connect(process.env.MONGO_URL)
   .then(() => console.log("Database connected"))
   .catch((err) => console.log("Database failed to connect", err));
+
 const verifyUser = (req, res, next) => {
   const token = req.cookies.token;
   if (!token) {
@@ -67,17 +68,18 @@ app.post("/login", (req, res) => {
             "jwt-secret-key",
             { expiresIn: "1d" }
           );
-          res.cookie("token", token);
+          res.cookie("token", token, { httpOnly: true });
           return res.json({ Status: "Success", role: user.role });
         } else {
-          return res.json("The password is incorrect");
+          return res.json("The password is incorrect.");
         }
       });
     } else {
-      return res.json("No record existed");
+      return res.json("No account with that email exists.");
     }
   });
 });
+
 app.get("/getUser", (req, res) => {
   const token = req.cookies.token;
   if (!token) {
@@ -88,7 +90,13 @@ app.get("/getUser", (req, res) => {
         return res.json("Error with token");
       } else {
         UserModel.findOne({ email: decoded.email })
-          .then((user) => res.json(user))
+          .then((user) => {
+            if (user) {
+              res.json(user);
+            } else {
+              res.json("User not found");
+            }
+          })
           .catch((err) => res.json(err));
       }
     });

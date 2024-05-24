@@ -1,79 +1,136 @@
-import React from "react";
-import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import React, { useState } from "react";
 import axios from "axios";
-
+import { Link, useNavigate } from "react-router-dom";
 function Login({ setIsLoggedIn }) {
-  const [email, setEmail] = useState();
-  const [password, setPassword] = useState();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
   const navigate = useNavigate();
 
   axios.defaults.withCredentials = true;
+
   const handleSubmit = (e) => {
     e.preventDefault();
     axios
       .post("http://localhost:3001/login", { email, password })
       .then((res) => {
-        console.log("login: " + res.data);
+        console.log("Response from backend:", res.data);
         if (res.data.Status === "Success") {
           setIsLoggedIn(true); // Update isLoggedIn state to true
+          localStorage.setItem("role", res.data.role); // Set the user's role in local storage
           if (res.data.role === "admin") {
             navigate("/home");
           } else {
             navigate("/profile");
           }
+        } else {
+          setErrorMessage(res.data); // Set the error message from the response
+          setIsLoggedIn(false); // Update isLoggedIn state to false
         }
       })
       .catch((err) => {
-        console.log(err);
+        console.log("Error during login:", err);
+        setErrorMessage("An error occurred while logging in."); // Set a generic error message
         setIsLoggedIn(false); // Update isLoggedIn state to false
       });
   };
 
   return (
-    <div className="d-flex justify-content-center align-items-center">
-      <div className="bg-white p-3 rounded w-25">
-        <h2>Login</h2>
-        <form onSubmit={handleSubmit}>
-          <div className="mb-3">
-            <label htmlFor="email">
-              <strong>Email</strong>
-            </label>
-            <input
-              type="email"
-              placeholder="Enter Email"
-              autoComplete="off"
-              name="email"
-              className="form-control rounded-0"
-              onChange={(e) => setEmail(e.target.value)}
-            />
-          </div>
-          <div className="mb-3">
-            <label htmlFor="email">
-              <strong>Password</strong>
-            </label>
-            <input
-              type="password"
-              placeholder="Enter Password"
-              name="password"
-              className="form-control rounded-0"
-              onChange={(e) => setPassword(e.target.value)}
-            />
-          </div>
-          <button type="submit" className="btn btn-success w-100 rounded-0">
-            Login
-          </button>
-        </form>
+    <div style={styles.container}>
+      <h2>Login</h2>
+      <form onSubmit={handleSubmit} style={styles.form}>
+        <div style={styles.inputGroup}>
+          <label>Email:</label>
+          <input
+            type="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            required
+            style={styles.input}
+          />
+        </div>
+        <div style={styles.inputGroup}>
+          <label>Password:</label>
+          <input
+            type="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            required
+            style={styles.input}
+          />
+        </div>
+        <button type="submit" style={styles.button}>
+          Login
+        </button>
+        {errorMessage && <p style={styles.error}>{errorMessage}</p>}
         <p>Don't Have an Account?</p>
         <Link
           to="/register"
-          className="btn btn-default border w-100 bg-light rounded-0 text-decoration-none"
+          style={styles.linkButton}
+          className="text-decoration-none"
         >
-          Sign Up
+          Register
         </Link>
-      </div>
+      </form>
     </div>
   );
 }
+
+const styles = {
+  container: {
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    justifyContent: "center",
+    height: "60vh",
+  },
+  form: {
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    padding: "20px",
+    backgroundColor: "#fff",
+    boxShadow: "0 0 10px rgba(0,0,0,0.1)",
+    borderRadius: "8px",
+    width: "300px",
+  },
+  inputGroup: {
+    marginBottom: "15px",
+    width: "100%",
+  },
+  input: {
+    width: "100%",
+    padding: "10px",
+    fontSize: "16px",
+    borderRadius: "4px",
+    border: "1px solid #ccc",
+    boxSizing: "border-box",
+  },
+  button: {
+    padding: "10px 20px",
+    fontSize: "16px",
+    color: "#fff",
+    backgroundColor: "#007bff",
+    border: "none",
+    borderRadius: "4px",
+    cursor: "pointer",
+    width: "100%",
+  },
+  linkButton: {
+    display: "block",
+    padding: "10px 20px",
+    fontSize: "16px",
+    color: "#007bff",
+    backgroundColor: "#f8f9fa",
+    border: "1px solid #ced4da",
+    borderRadius: "4px",
+    textAlign: "center",
+    marginTop: "10px",
+  },
+  error: {
+    color: "red",
+    marginTop: "10px",
+  },
+};
 
 export default Login;

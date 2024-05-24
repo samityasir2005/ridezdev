@@ -10,7 +10,9 @@ import Profile from "../src/pages/Profile";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { UserContextProvider } from "../context/userContext";
 function App() {
-  const [isLoggedIn, setIsLoggedIn] = useState(false); // Add isLoggedIn state
+  const [isLoggedIn, setIsLoggedIn] = useState(
+    localStorage.getItem("isLoggedIn") === "true"
+  );
 
   return (
     <>

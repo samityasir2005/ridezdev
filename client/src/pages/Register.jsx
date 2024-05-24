@@ -1,12 +1,12 @@
-import { useState } from "react";
-import "bootstrap/dist/css/bootstrap.min.css";
+import React, { useState } from "react";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 
 function Register() {
-  const [name, setName] = useState();
-  const [email, setEmail] = useState();
-  const [password, setPassword] = useState();
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
   const navigate = useNavigate();
 
   const handleSubmit = (e) => {
@@ -16,66 +16,123 @@ function Register() {
       .then((res) => {
         navigate("/login");
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        console.log(err);
+        setErrorMessage("An error occurred while registering."); // Set a generic error message
+      });
   };
 
   return (
-    <div className="d-flex justify-content-center align-items-center">
-      <div className="bg-white p-3 rounded w-25">
-        <h2>Register</h2>
-        <form onSubmit={handleSubmit}>
-          <div className="mb-3">
-            <label htmlFor="email">
-              <strong>Name</strong>
-            </label>
-            <input
-              type="text"
-              placeholder="Enter Name"
-              autoComplete="off"
-              name="email"
-              className="form-control rounded-0"
-              onChange={(e) => setName(e.target.value)}
-            />
-          </div>
-          <div className="mb-3">
-            <label htmlFor="email">
-              <strong>Email</strong>
-            </label>
-            <input
-              type="email"
-              placeholder="Enter Email"
-              autoComplete="off"
-              name="email"
-              className="form-control rounded-0"
-              onChange={(e) => setEmail(e.target.value)}
-            />
-          </div>
-          <div className="mb-3">
-            <label htmlFor="email">
-              <strong>Password</strong>
-            </label>
-            <input
-              type="password"
-              placeholder="Enter Password"
-              name="password"
-              className="form-control rounded-0"
-              onChange={(e) => setPassword(e.target.value)}
-            />
-          </div>
-          <button type="submit" className="btn btn-success w-100 rounded-0">
-            Register
-          </button>
-        </form>
+    <div style={styles.container}>
+      <h2>Register</h2>
+      <form onSubmit={handleSubmit} style={styles.form}>
+        <div style={styles.inputGroup}>
+          <label>Name:</label>
+          <input
+            type="text"
+            placeholder="Enter Name"
+            autoComplete="off"
+            className="form-control"
+            onChange={(e) => setName(e.target.value)}
+            required
+            style={styles.input}
+          />
+        </div>
+        <div style={styles.inputGroup}>
+          <label>Email:</label>
+          <input
+            type="email"
+            placeholder="Enter Email"
+            autoComplete="off"
+            className="form-control"
+            onChange={(e) => setEmail(e.target.value)}
+            required
+            style={styles.input}
+          />
+        </div>
+        <div style={styles.inputGroup}>
+          <label>Password:</label>
+          <input
+            type="password"
+            placeholder="Enter Password"
+            className="form-control"
+            onChange={(e) => setPassword(e.target.value)}
+            required
+            style={styles.input}
+          />
+        </div>
+        <button type="submit" style={styles.button}>
+          Register
+        </button>
+        {errorMessage && <p style={styles.error}>{errorMessage}</p>}
         <p>Already Have an Account?</p>
         <Link
           to="/login"
-          className="btn btn-default border w-100 bg-light rounded-0 text-decoration-none"
+          style={styles.linkButton}
+          className="text-decoration-none"
         >
           Login
         </Link>
-      </div>
+      </form>
     </div>
   );
 }
+
+const styles = {
+  container: {
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    justifyContent: "center",
+    height: "60vh",
+  },
+  form: {
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    padding: "20px",
+    backgroundColor: "#fff",
+    boxShadow: "0 0 10px rgba(0,0,0,0.1)",
+    borderRadius: "8px",
+    width: "300px",
+  },
+  inputGroup: {
+    marginBottom: "15px",
+    width: "100%",
+  },
+  input: {
+    width: "100%",
+    padding: "10px",
+    fontSize: "16px",
+    borderRadius: "4px",
+    border: "1px solid #ccc",
+    boxSizing: "border-box",
+  },
+  button: {
+    padding: "10px 20px",
+    fontSize: "16px",
+    color: "#fff",
+    backgroundColor: "#007bff",
+    border: "none",
+    borderRadius: "4px",
+    cursor: "pointer",
+    width: "100%",
+  },
+  linkButton: {
+    display: "block",
+    padding: "10px 20px",
+    fontSize: "16px",
+    color: "#007bff",
+    backgroundColor: "#f8f9fa",
+    border: "1px solid #ced4da",
+    borderRadius: "4px",
+    textAlign: "center",
+    marginTop: "10px",
+  },
+  error: {
+    color: "red",
+    marginTop: "10px",
+  },
+};
 
 export default Register;
