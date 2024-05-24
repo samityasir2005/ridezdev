@@ -15,20 +15,16 @@ export default function Header() {
             <Nav className="me-auto">
               <Nav.Link href="/">Home</Nav.Link>
               <Nav.Link href="/about">About Us</Nav.Link>
-              <Nav.Link href="/register">Register/Login</Nav.Link>
-              <NavDropdown title="Dropdown" id="basic-nav-dropdown">
-                <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
-                <NavDropdown.Item href="#action/3.2">
-                  Another action
-                </NavDropdown.Item>
+              <NavDropdown title="Rides" id="basic-nav-dropdown">
                 <NavDropdown.Item href="#action/3.3">
-                  Something
+                  Find Rides
                 </NavDropdown.Item>
                 <NavDropdown.Divider />
                 <NavDropdown.Item href="#action/3.4">
-                  Separated link
+                  Post Rides
                 </NavDropdown.Item>
               </NavDropdown>
+              <Nav.Link href="/register">Register/Login</Nav.Link>
             </Nav>
           </Navbar.Collapse>
         </Container>

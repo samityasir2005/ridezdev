@@ -20,12 +20,12 @@ app.use(
 );
 app.use(cookieParser());
 
-//datebase connection
+//database connection
 mongoose
   .connect(process.env.MONGO_URL)
   .then(() => console.log("Database connected"))
   .catch((err) => console.log("Database failed to connect", err));
-const varifyUser = (req, res, next) => {
+const verifyUser = (req, res, next) => {
   const token = req.cookies.token;
   if (!token) {
     return res.json("Token is missing");
@@ -43,10 +43,6 @@ const varifyUser = (req, res, next) => {
     });
   }
 };
-
-app.get("/dashboard", varifyUser, (req, res) => {
-  res.json("Success");
-});
 
 app.post("/register", (req, res) => {
   const { name, email, password } = req.body;
@@ -81,6 +77,28 @@ app.post("/login", (req, res) => {
       return res.json("No record existed");
     }
   });
+});
+app.get("/getUser", (req, res) => {
+  const token = req.cookies.token;
+  if (!token) {
+    return res.json("Token is missing");
+  } else {
+    jwt.verify(token, "jwt-secret-key", (err, decoded) => {
+      if (err) {
+        return res.json("Error with token");
+      } else {
+        UserModel.findOne({ email: decoded.email })
+          .then((user) => res.json(user))
+          .catch((err) => res.json(err));
+      }
+    });
+  }
+});
+
+// Logout route
+app.get("/logout", (req, res) => {
+  res.clearCookie("token");
+  return res.json("User logged out");
 });
 
 app.listen(3001, () => {

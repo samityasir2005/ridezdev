@@ -66,7 +66,7 @@ function Register() {
             Register
           </button>
         </form>
-        <p>Already Have an Account</p>
+        <p>Already Have an Account?</p>
         <Link
           to="/login"
           className="btn btn-default border w-100 bg-light rounded-0 text-decoration-none"

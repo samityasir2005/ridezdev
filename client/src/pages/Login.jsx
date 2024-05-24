@@ -3,7 +3,7 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 
-function Login() {
+function Login({ setIsLoggedIn }) {
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
   const navigate = useNavigate();
@@ -16,14 +16,18 @@ function Login() {
       .then((res) => {
         console.log("login: " + res.data);
         if (res.data.Status === "Success") {
+          setIsLoggedIn(true); // Update isLoggedIn state to true
           if (res.data.role === "admin") {
             navigate("/home");
           } else {
-            navigate("/");
+            navigate("/profile");
           }
         }
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        console.log(err);
+        setIsLoggedIn(false); // Update isLoggedIn state to false
+      });
   };
 
   return (
@@ -60,7 +64,7 @@ function Login() {
             Login
           </button>
         </form>
-        <p>Already Have an Account</p>
+        <p>Don't Have an Account?</p>
         <Link
           to="/register"
           className="btn btn-default border w-100 bg-light rounded-0 text-decoration-none"
