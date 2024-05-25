@@ -1,138 +1,153 @@
-import React, { useState } from "react";
-import axios from "axios";
+import React, { useEffect, useState } from "react";
+import Image from "../assets/laurier-logo.jpg";
+import Logo from "../assets/logo.png";
+import { FaEye } from "react-icons/fa6";
+import { FaEyeSlash } from "react-icons/fa6";
+import "../styles/Register.css";
 import { Link, useNavigate } from "react-router-dom";
+import axios from "axios";
+import { toast } from "react-toastify";
 
-function Register() {
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [errorMessage, setErrorMessage] = useState("");
+const Login = () => {
+  const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
+  const [token, setToken] = useState(
+    JSON.parse(localStorage.getItem("auth")) || ""
+  );
 
-  const handleSubmit = (e) => {
+  const handleRegisterSubmit = async (e) => {
     e.preventDefault();
-    axios
-      .post("http://localhost:3001/register", { name, email, password })
-      .then((res) => {
-        navigate("/login");
-      })
-      .catch((err) => {
-        console.log(err);
-        setErrorMessage("An error occurred while registering."); // Set a generic error message
-      });
+    let name = e.target.name.value;
+    let lastname = e.target.lastname.value;
+    let email = e.target.email.value;
+    let password = e.target.password.value;
+    let confirmPassword = e.target.confirmPassword.value;
+
+    if (
+      name.length > 0 &&
+      lastname.length > 0 &&
+      email.length > 0 &&
+      password.length > 0 &&
+      confirmPassword.length > 0
+    ) {
+      if (password === confirmPassword) {
+        const formData = {
+          username: name + " " + lastname,
+          email,
+          password,
+        };
+        try {
+          const response = await axios.post(
+            "http://localhost:3000/api/v1/register",
+            formData
+          );
+          toast.success("Registration successfull");
+          navigate("/login");
+        } catch (err) {
+          toast.error(err.message);
+        }
+      } else {
+        toast.error("Passwords don't match");
+      }
+    } else {
+      toast.error("Please fill all inputs");
+    }
   };
 
+  useEffect(() => {
+    if (token !== "") {
+      toast.success("You already logged in");
+      navigate("/dashboard");
+    }
+  }, []);
+
   return (
-    <div style={styles.container}>
-      <h2>Register</h2>
-      <form onSubmit={handleSubmit} style={styles.form}>
-        <div style={styles.inputGroup}>
-          <label>Name:</label>
-          <input
-            type="text"
-            placeholder="Enter Name"
-            autoComplete="off"
-            className="form-control"
-            onChange={(e) => setName(e.target.value)}
-            required
-            style={styles.input}
-          />
+    <div className="register-main">
+      <div className="register-left">
+        <img src={Image} alt="" />
+      </div>
+      <div className="register-right">
+        <div className="register-right-container">
+          <div className="register-logo">
+            <img src={Logo} alt="" />
+          </div>
+          <div className="register-center">
+            <h2>Welcome to Ridez!</h2>
+            <p>Please enter your details</p>
+            <form onSubmit={handleRegisterSubmit}>
+              <input
+                type="text"
+                placeholder="Name"
+                name="name"
+                required={true}
+              />
+              <input
+                type="text"
+                placeholder="Lastname"
+                name="lastname"
+                required={true}
+              />
+              <input
+                type="email"
+                placeholder="Email"
+                name="email"
+                required={true}
+              />
+              <div className="pass-input-div">
+                <input
+                  type={showPassword ? "text" : "password"}
+                  placeholder="Password"
+                  name="password"
+                  required={true}
+                />
+                {showPassword ? (
+                  <FaEyeSlash
+                    onClick={() => {
+                      setShowPassword(!showPassword);
+                    }}
+                  />
+                ) : (
+                  <FaEye
+                    onClick={() => {
+                      setShowPassword(!showPassword);
+                    }}
+                  />
+                )}
+              </div>
+              <div className="pass-input-div">
+                <input
+                  type={showPassword ? "text" : "password"}
+                  placeholder="Confirm Password"
+                  name="confirmPassword"
+                  required={true}
+                />
+                {showPassword ? (
+                  <FaEyeSlash
+                    onClick={() => {
+                      setShowPassword(!showPassword);
+                    }}
+                  />
+                ) : (
+                  <FaEye
+                    onClick={() => {
+                      setShowPassword(!showPassword);
+                    }}
+                  />
+                )}
+              </div>
+              <div className="register-center-buttons">
+                <button type="submit">Sign Up</button>
+              </div>
+            </form>
+          </div>
+
+          <p className="login-bottom-p">
+            Already have an account? <Link to="/login">Login</Link>
+          </p>
         </div>
-        <div style={styles.inputGroup}>
-          <label>Email:</label>
-          <input
-            type="email"
-            placeholder="Enter Email"
-            autoComplete="off"
-            className="form-control"
-            onChange={(e) => setEmail(e.target.value)}
-            required
-            style={styles.input}
-          />
-        </div>
-        <div style={styles.inputGroup}>
-          <label>Password:</label>
-          <input
-            type="password"
-            placeholder="Enter Password"
-            className="form-control"
-            onChange={(e) => setPassword(e.target.value)}
-            required
-            style={styles.input}
-          />
-        </div>
-        <button type="submit" style={styles.button}>
-          Register
-        </button>
-        {errorMessage && <p style={styles.error}>{errorMessage}</p>}
-        <p>Already Have an Account?</p>
-        <Link
-          to="/login"
-          style={styles.linkButton}
-          className="text-decoration-none"
-        >
-          Login
-        </Link>
-      </form>
+      </div>
     </div>
   );
-}
-
-const styles = {
-  container: {
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-    justifyContent: "center",
-    height: "60vh",
-  },
-  form: {
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-    padding: "20px",
-    backgroundColor: "#fff",
-    boxShadow: "0 0 10px rgba(0,0,0,0.1)",
-    borderRadius: "8px",
-    width: "300px",
-  },
-  inputGroup: {
-    marginBottom: "15px",
-    width: "100%",
-  },
-  input: {
-    width: "100%",
-    padding: "10px",
-    fontSize: "16px",
-    borderRadius: "4px",
-    border: "1px solid #ccc",
-    boxSizing: "border-box",
-  },
-  button: {
-    padding: "10px 20px",
-    fontSize: "16px",
-    color: "#fff",
-    backgroundColor: "#007bff",
-    border: "none",
-    borderRadius: "4px",
-    cursor: "pointer",
-    width: "100%",
-  },
-  linkButton: {
-    display: "block",
-    padding: "10px 20px",
-    fontSize: "16px",
-    color: "#007bff",
-    backgroundColor: "#f8f9fa",
-    border: "1px solid #ced4da",
-    borderRadius: "4px",
-    textAlign: "center",
-    marginTop: "10px",
-  },
-  error: {
-    color: "red",
-    marginTop: "10px",
-  },
 };
 
-export default Register;
+export default Login;

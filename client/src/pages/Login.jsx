@@ -1,136 +1,114 @@
-import React, { useState } from "react";
-import axios from "axios";
+import React, { useEffect, useState } from "react";
+import Image from "../assets/laurier-logo.jpg";
+import Logo from "../assets/logo.png";
+import { FaEye } from "react-icons/fa6";
+import { FaEyeSlash } from "react-icons/fa6";
+import "../styles/Login.css";
 import { Link, useNavigate } from "react-router-dom";
-function Login({ setIsLoggedIn }) {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [errorMessage, setErrorMessage] = useState("");
+import axios from "axios";
+import { toast } from "react-toastify";
+
+const Login = () => {
+  const [showPassword, setShowPassword] = useState(false);
+  const [token, setToken] = useState(
+    JSON.parse(localStorage.getItem("auth")) || ""
+  );
   const navigate = useNavigate();
 
-  axios.defaults.withCredentials = true;
-
-  const handleSubmit = (e) => {
+  const handleLoginSubmit = async (e) => {
     e.preventDefault();
-    axios
-      .post("http://localhost:3001/login", { email, password })
-      .then((res) => {
-        console.log("Response from backend:", res.data);
-        if (res.data.Status === "Success") {
-          setIsLoggedIn(true); // Update isLoggedIn state to true
-          localStorage.setItem("role", res.data.role); // Set the user's role in local storage
-          if (res.data.role === "admin") {
-            navigate("/home");
-          } else {
-            navigate("/profile");
-          }
-        } else {
-          setErrorMessage(res.data); // Set the error message from the response
-          setIsLoggedIn(false); // Update isLoggedIn state to false
-        }
-      })
-      .catch((err) => {
-        console.log("Error during login:", err);
-        setErrorMessage("An error occurred while logging in."); // Set a generic error message
-        setIsLoggedIn(false); // Update isLoggedIn state to false
-      });
+    let email = e.target.email.value;
+    let password = e.target.password.value;
+
+    if (email.length > 0 && password.length > 0) {
+      const formData = {
+        email,
+        password,
+      };
+      try {
+        const response = await axios.post(
+          "http://localhost:3000/api/v1/login",
+          formData
+        );
+        localStorage.setItem("auth", JSON.stringify(response.data.token));
+        toast.success("Login successfull");
+        navigate("/dashboard");
+      } catch (err) {
+        console.log(err);
+        toast.error(err.message);
+      }
+    } else {
+      toast.error("Please fill all inputs");
+    }
   };
 
+  useEffect(() => {
+    if (token !== "") {
+      toast.success("You already logged in");
+      navigate("/dashboard");
+    }
+  }, []);
+
   return (
-    <div style={styles.container}>
-      <h2>Login</h2>
-      <form onSubmit={handleSubmit} style={styles.form}>
-        <div style={styles.inputGroup}>
-          <label>Email:</label>
-          <input
-            type="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-            style={styles.input}
-          />
+    <div className="login-main">
+      <div className="login-left">
+        <img src={Image} alt="" />
+      </div>
+      <div className="login-right">
+        <div className="login-right-container">
+          <div className="login-logo">
+            <img src={Logo} alt="" />
+          </div>
+          <div className="login-center">
+            <h2>Welcome back!</h2>
+            <p>Please enter your details</p>
+            <form onSubmit={handleLoginSubmit}>
+              <input type="email" placeholder="Email" name="email" />
+              <div className="pass-input-div">
+                <input
+                  type={showPassword ? "text" : "password"}
+                  placeholder="Password"
+                  name="password"
+                />
+                {showPassword ? (
+                  <FaEyeSlash
+                    onClick={() => {
+                      setShowPassword(!showPassword);
+                    }}
+                  />
+                ) : (
+                  <FaEye
+                    onClick={() => {
+                      setShowPassword(!showPassword);
+                    }}
+                  />
+                )}
+              </div>
+
+              <div className="login-center-options">
+                <div className="remember-div">
+                  <input type="checkbox" id="remember-checkbox" />
+                  <label htmlFor="remember-checkbox">
+                    Remember for 30 days
+                  </label>
+                </div>
+                <a href="#" className="forgot-pass-link">
+                  Forgot password?
+                </a>
+              </div>
+              <div className="login-center-buttons">
+                <button type="submit">Log In</button>
+              </div>
+            </form>
+          </div>
+
+          <p className="login-bottom-p">
+            Don't have an account? <Link to="/register">Sign Up</Link>
+          </p>
         </div>
-        <div style={styles.inputGroup}>
-          <label>Password:</label>
-          <input
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-            style={styles.input}
-          />
-        </div>
-        <button type="submit" style={styles.button}>
-          Login
-        </button>
-        {errorMessage && <p style={styles.error}>{errorMessage}</p>}
-        <p>Don't Have an Account?</p>
-        <Link
-          to="/register"
-          style={styles.linkButton}
-          className="text-decoration-none"
-        >
-          Register
-        </Link>
-      </form>
+      </div>
     </div>
   );
-}
-
-const styles = {
-  container: {
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-    justifyContent: "center",
-    height: "60vh",
-  },
-  form: {
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-    padding: "20px",
-    backgroundColor: "#fff",
-    boxShadow: "0 0 10px rgba(0,0,0,0.1)",
-    borderRadius: "8px",
-    width: "300px",
-  },
-  inputGroup: {
-    marginBottom: "15px",
-    width: "100%",
-  },
-  input: {
-    width: "100%",
-    padding: "10px",
-    fontSize: "16px",
-    borderRadius: "4px",
-    border: "1px solid #ccc",
-    boxSizing: "border-box",
-  },
-  button: {
-    padding: "10px 20px",
-    fontSize: "16px",
-    color: "#fff",
-    backgroundColor: "#007bff",
-    border: "none",
-    borderRadius: "4px",
-    cursor: "pointer",
-    width: "100%",
-  },
-  linkButton: {
-    display: "block",
-    padding: "10px 20px",
-    fontSize: "16px",
-    color: "#007bff",
-    backgroundColor: "#f8f9fa",
-    border: "1px solid #ced4da",
-    borderRadius: "4px",
-    textAlign: "center",
-    marginTop: "10px",
-  },
-  error: {
-    color: "red",
-    marginTop: "10px",
-  },
 };
 
 export default Login;
