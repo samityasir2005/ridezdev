@@ -1,0 +1,109 @@
+/* General Styles */
+.about-us-container {
+  padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+  font-family: Arial, sans-serif;
+  scroll-behavior: smooth; /* Enable smooth scrolling */
+  background-color: white; /* Keep background white */
+  color: #4a148c; /* Dark purple text */
+}
+
+.about-us-content {
+  display: flex;
+}
+
+.about-us-nav {
+  position: sticky;
+  top: 20px; /* Adjust this value based on your header height */
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  border-left: 2px solid #7b1fa2; /* Medium purple line */
+  padding-left: 20px; /* Add padding for a nicer look */
+  margin-right: 40px; /* Add more space between the nav and the content */
+}
+
+.about-us-nav a {
+  text-decoration: none;
+  padding: 20px 0; /* Increased spacing */
+  color: #7b1fa2; /* Medium purple */
+  font-weight: bold;
+  position: relative;
+  transition: color 0.3s ease; /* Smooth transition for hover effect */
+}
+
+.about-us-nav a::before {
+  content: "";
+  position: absolute;
+  left: -20px; /* Adjust to align with the border-left */
+  top: 50%;
+  transform: translateY(-50%);
+  width: 10px;
+  height: 10px;
+  background-color: #7b1fa2; /* Medium purple */
+  border-radius: 50%;
+  transition: background-color 0.3s ease; /* Smooth transition for hover effect */
+}
+
+.about-us-nav a:hover {
+  color: #4a148c; /* Dark purple */
+}
+
+.about-us-nav a:hover::before {
+  background-color: #4a148c; /* Dark purple */
+}
+
+.about-us-sections {
+  margin-left: 260px; /* Increased margin to accommodate the fixed-width sidebar */
+  flex-grow: 1;
+}
+
+.about-us-section {
+  margin-bottom: 60px; /* Increased bottom margin */
+  opacity: 0; /* Start hidden for animation */
+  transform: translateY(20px); /* Start slightly below for animation */
+  animation: fadeInUp 1s forwards; /* Animation */
+}
+
+.about-us-section h2 {
+  color: #6a1b9a; /* Medium-dark purple */
+}
+
+.slide-in-left {
+  animation: slideInLeft 1s forwards;
+}
+
+.slide-in-right {
+  animation: slideInRight 1s forwards;
+}
+
+/* Animations */
+@keyframes fadeInUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-100%);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(100%);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
