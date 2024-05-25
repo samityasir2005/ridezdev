@@ -35,15 +35,28 @@ const Dashboard = () => {
       navigate("/login");
       toast.warn("Please login first to access dashboard");
     }
-  }, [token]);
+  }, [token, navigate]);
 
   return (
     <div className="dashboard-main">
-      <h1>Dashboard</h1>
-      <p>{data.msg}! </p>
-      <Link to="/logout" className="logout-button">
-        Logout
-      </Link>
+      <div className="dashboard-header">
+        <h1>Welcome to Your Dashboard</h1>
+        <Link to="/logout" className="logout-button">
+          Logout
+        </Link>
+      </div>
+      <div className="user-profile">
+        <img src={data.user?.profilePicture} alt="Profile" className="profile-pic" />
+        <h2>{data.user?.name}</h2>
+        <p>Email: {data.user?.email}</p>
+        <p>{data.msg}</p>
+      </div>
+      <div className="dashboard-nav">
+        <Link to="/book-ride" className="nav-button">Book a Ride</Link>
+        <Link to="/my-rides" className="nav-button">My Rides</Link>
+        <Link to="/messages" className="nav-button">Messages</Link>
+        <Link to="/settings" className="nav-button">Settings</Link>
+      </div>
     </div>
   );
 };

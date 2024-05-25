@@ -77,13 +77,13 @@ const Login = () => {
             <form onSubmit={handleRegisterSubmit}>
               <input
                 type="text"
-                placeholder="Name"
+                placeholder="First Name"
                 name="name"
                 required={true}
               />
               <input
                 type="text"
-                placeholder="Lastname"
+                placeholder="Last Name"
                 name="lastname"
                 required={true}
               />
