@@ -31,8 +31,10 @@ const Login = () => {
           formData
         );
         localStorage.setItem("auth", JSON.stringify(response.data.token));
+        setToken(JSON.stringify(response.data.token)); // Update the token state
         toast.success("Login successful");
         navigate("/dashboard");
+        window.location.reload();
       } catch (err) {
         console.log(err);
         toast.error(err.message);
@@ -47,7 +49,7 @@ const Login = () => {
       toast.success("You already logged in");
       navigate("/dashboard");
     }
-  }, []);
+  }, [token]); // Add token as a dependency
 
   return (
     <div className="login-main">

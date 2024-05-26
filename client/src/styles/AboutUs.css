@@ -6,7 +6,7 @@
   font-family: Arial, sans-serif;
   scroll-behavior: smooth; /* Enable smooth scrolling */
   background-color: white; /* Keep background white */
-  color: #4a148c; /* Dark purple text */
+  color: #000000; /* Dark purple text */
 }
 
 .about-us-content {
@@ -67,7 +67,7 @@
 }
 
 .about-us-section h2 {
-  color: #6a1b9a; /* Medium-dark purple */
+  color: #000000; /* Medium-dark purple */
 }
 
 .slide-in-left {
