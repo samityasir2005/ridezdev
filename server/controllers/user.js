@@ -15,13 +15,9 @@ const login = async (req, res) => {
     const isMatch = await foundUser.comparePassword(password);
 
     if (isMatch) {
-      const token = jwt.sign(
-        { id: foundUser._id, name: foundUser.name },
-        process.env.JWT_SECRET,
-        {
-          expiresIn: "30d",
-        }
-      );
+      const token = jwt.sign({ id: foundUser._id }, process.env.JWT_SECRET, {
+        expiresIn: "30d",
+      });
 
       return res.status(200).json({ msg: "user logged in", token });
     } else {
@@ -33,12 +29,19 @@ const login = async (req, res) => {
 };
 
 const dashboard = async (req, res) => {
-  const luckyNumber = Math.floor(Math.random() * 100);
-
-  res.status(200).json({
-    msg: `Hello, ${req.user.name}`,
-    secret: `Here is your authorized data, your lucky number is ${luckyNumber}`,
-  });
+  try {
+    const { _id, name, email } = req.user;
+    res.status(200).json({
+      user: {
+        id: _id,
+        name,
+        email,
+      },
+    });
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ msg: "Server error" });
+  }
 };
 
 const getAllUsers = async (req, res) => {
@@ -59,8 +62,10 @@ const register = async (req, res) => {
       });
       await person.save();
       return res.status(201).json({ person });
-    }else{
-        return res.status(400).json({msg: "Please add all values in the request body"});
+    } else {
+      return res
+        .status(400)
+        .json({ msg: "Please add all values in the request body" });
     }
   } else {
     return res.status(400).json({ msg: "Email already in use" });

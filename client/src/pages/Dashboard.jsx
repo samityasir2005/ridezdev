@@ -8,10 +8,10 @@ const Dashboard = () => {
   const [token, setToken] = useState(
     JSON.parse(localStorage.getItem("auth")) || ""
   );
-  const [data, setData] = useState({});
+  const [userData, setUserData] = useState(null);
   const navigate = useNavigate();
 
-  const fetchGreeting = async () => {
+  const fetchUserData = async () => {
     let axiosConfig = {
       headers: {
         Authorization: `Bearer ${token}`,
@@ -23,14 +23,14 @@ const Dashboard = () => {
         "http://localhost:3000/api/v1/dashboard",
         axiosConfig
       );
-      setData({ msg: response.data.msg });
+      setUserData(response.data.user);
     } catch (error) {
       toast.error(error.message);
     }
   };
 
   useEffect(() => {
-    fetchGreeting();
+    fetchUserData();
     if (token === "") {
       navigate("/login");
       toast.warn("Please login first to access dashboard");
@@ -46,16 +46,34 @@ const Dashboard = () => {
         </Link>
       </div>
       <div className="user-profile">
-        <img src={data.user?.profilePicture} alt="Profile" className="profile-pic" />
-        <h2>{data.user?.name}</h2>
-        <p>Email: {data.user?.email}</p>
-        <p>{data.msg}</p>
+        {userData ? (
+          <>
+            <img
+              src={userData.profilePicture}
+              alt="Profile"
+              className="profile-pic"
+            />
+            <p>Name: {userData.name}</p>
+            <p>Email: {userData.email}</p>
+            <p>ID: {userData.id}</p>
+          </>
+        ) : (
+          <p>Loading user data...</p>
+        )}
       </div>
       <div className="dashboard-nav">
-        <Link to="/book-ride" className="nav-button">Book a Ride</Link>
-        <Link to="/my-rides" className="nav-button">My Rides</Link>
-        <Link to="/messages" className="nav-button">Messages</Link>
-        <Link to="/settings" className="nav-button">Settings</Link>
+        <Link to="/book-ride" className="nav-button">
+          Book a Ride
+        </Link>
+        <Link to="/my-rides" className="nav-button">
+          My Rides
+        </Link>
+        <Link to="/messages" className="nav-button">
+          Messages
+        </Link>
+        <Link to="/settings" className="nav-button">
+          Settings
+        </Link>
       </div>
     </div>
   );
