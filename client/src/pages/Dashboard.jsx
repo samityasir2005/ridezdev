@@ -3,6 +3,7 @@ import "../styles/Dashboard.css";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import axios from "axios";
+import defaultProfilePic from "../assets/profile-pictures/default.jpg";
 
 const Dashboard = () => {
   const [token, setToken] = useState(
@@ -49,7 +50,7 @@ const Dashboard = () => {
         {userData ? (
           <>
             <img
-              src={userData.profilePicture}
+              src={defaultProfilePic}
               alt="Profile"
               className="profile-pic"
             />

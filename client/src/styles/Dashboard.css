@@ -38,3 +38,10 @@
   color: #333;
   background-color: white;
 }
+
+.profile-pic {
+  width: 100px; /* Adjust as needed */
+  height: 100px; /* Adjust as needed */
+  border-radius: 50%; /* For circular profile pictures */
+  object-fit: cover; /* Ensure the image fits the container */
+}

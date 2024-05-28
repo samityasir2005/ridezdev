@@ -36,6 +36,7 @@ const dashboard = async (req, res) => {
         id: _id,
         name,
         email,
+        profile_pic: '.../client/src/assets/profile-pictures/default.jpg'
       },
     });
   } catch (error) {
