@@ -24,7 +24,7 @@ export default function Header() {
     <div style={{ paddingBottom: "30px" }}>
       <Navbar expand="lg" className="bg-body-tertiary" fixed="top">
         <Container>
-          <Navbar.Brand href="/">Ridez</Navbar.Brand>
+          <Navbar.Brand href="/">Uridez</Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="me-auto">
