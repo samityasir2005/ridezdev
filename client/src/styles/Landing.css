@@ -1,62 +1,86 @@
-.landing-main{
-    font-size: 30px;
-    height: 100vh;
-    width: 100%;
-
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
+.landing-main {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  background-color: #f0f0f0;
 }
 
-.landing-login-button{
-    background: black;
-    color: white;
-    border: 3px solid black;
-    transition: background 1s linear 0ms;
-    transition: color 500ms linear 0ms;
+.left-side {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 
-    width: 500px;
-    padding: 16px;
-    border-radius: 4px;
-    cursor: pointer;
-    border-radius: 30px;
-    font-weight: 600;
-    margin-top: 10px;
+.campus-image {
+  max-width: 100%;
+  height: auto;
+  border-radius: 10px;
+  animation: fadeIn 2s ease-in-out;
+}
 
-    font-size: 20px;
-    text-align: center;
-    text-decoration: none;
+.right-side {
+  flex: 1;
+  padding: 20px;
+  text-align: center;
+}
+
+h1 {
+  font-size: 2em;
+  margin-bottom: 20px;
+  animation: slideIn 1s ease-in-out;
+}
+
+.ride-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.ride-form label {
+  margin: 10px 0 5px;
+}
+
+.ride-form input {
+  padding: 10px;
+  margin-bottom: 20px;
+  width: 80%;
+  max-width: 300px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.ride-form button {
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.ride-form button:hover {
+  background-color: #0056b3;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
   }
-
-  .landing-register-button{
-    background: black;
-    color: white;
-    border: 3px solid black;
-    transition: background 1s linear 0ms;
-    transition: color 500ms linear 0ms;
-
-    width: 500px;
-    padding: 16px;
-    border-radius: 4px;
-    font-size: 16px;
-    cursor: pointer;
-    border-radius: 30px;
-    font-weight: 600;
-    margin-top: 10px;
-
-    font-size: 20px;
-    text-align: center;
-    text-decoration: none;
+  to {
+    opacity: 1;
   }
+}
 
-  
-  .landing-register-button:hover{
-    color: #333;
-    background-color: white;
+@keyframes slideIn {
+  from {
+    transform: translateY(-20px);
+    opacity: 0;
   }
-
-  .landing-login-button:hover{
-    color: #333;
-    background-color: white;
+  to {
+    transform: translateY(0);
+    opacity: 1;
   }
+}

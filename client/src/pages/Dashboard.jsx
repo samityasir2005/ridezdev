@@ -62,20 +62,6 @@ const Dashboard = () => {
           <p>Loading user data...</p>
         )}
       </div>
-      <div className="dashboard-nav">
-        <Link to="/book-ride" className="nav-button">
-          Book a Ride
-        </Link>
-        <Link to="/my-rides" className="nav-button">
-          My Rides
-        </Link>
-        <Link to="/messages" className="nav-button">
-          Messages
-        </Link>
-        <Link to="/settings" className="nav-button">
-          Settings
-        </Link>
-      </div>
     </div>
   );
 };

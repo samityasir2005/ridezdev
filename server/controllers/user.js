@@ -30,13 +30,12 @@ const login = async (req, res) => {
 
 const dashboard = async (req, res) => {
   try {
-    const { _id, name, email } = req.user;
+    const { _id, name, email, avatar } = req.user;
     res.status(200).json({
       user: {
         id: _id,
         name,
         email,
-        profile_pic: '.../client/src/assets/profile-pictures/default.jpg'
       },
     });
   } catch (error) {
