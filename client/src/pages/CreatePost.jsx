@@ -7,13 +7,10 @@ import { toast } from "react-toastify";
 function CreatePost() {
   const { user, token } = useContext(UserContext);
   const navigate = useNavigate();
-  const toastId = React.useRef(null);
 
   useEffect(() => {
     if (!token) {
-      if (!toast.isActive(toastId.current)) {
-        toastId.current = toast.warn("Please login first to create posts");
-      }
+      toast.warn("Please login first to create posts");
       navigate("/login");
     }
   }, [token, navigate]);

@@ -13,7 +13,7 @@ import {
   Register,
 } from "./pages";
 import AboutUs from "./pages/AboutUs";
-import CreatePost from "./pages/CreatePost"; // Import your CreatePost component
+import CreatePost from "./pages/CreatePost";
 import { UserProvider } from "./usercontext/UserContext";
 
 const router = createBrowserRouter([
