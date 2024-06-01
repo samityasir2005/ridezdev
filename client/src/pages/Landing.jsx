@@ -8,7 +8,7 @@ const libraries = ["places"];
 
 const Landing = () => {
   const { isLoaded } = useLoadScript({
-    googleMapsApiKey: "AIzaSyBwhOb8KvQ9-7XMHmExyBGUxqsj6f7rjKs",
+    googleMapsApiKey: import.meta.env.VITE_GOOGLE_MAPS_API_KEY,
     libraries,
   });
 
@@ -20,7 +20,7 @@ const Landing = () => {
         <img src={abs} alt="Campus" className="campus-image" />
       </div>
       <div className="right-side">
-        <h1>UniRidez: Your Campus, Your Commute, Your Community!</h1>
+        <h1>Uridez: Your Campus, Your Commute, Your Community!</h1>
         <form className="ride-form">
           <label htmlFor="from">From:</label>
           <Autocomplete>
