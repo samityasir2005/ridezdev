@@ -1,14 +1,13 @@
 import React, { useEffect, useState } from "react";
 import Image from "../assets/laurier-logo.jpg";
 import Logo from "../assets/logo.png";
-import { FaEye } from "react-icons/fa6";
-import { FaEyeSlash } from "react-icons/fa6";
+import { FaEye, FaEyeSlash } from "react-icons/fa6";
 import "../styles/Register.css";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { toast } from "react-toastify";
-
-const Login = () => {
+import { motion } from "framer-motion";
+const Register = () => {
   const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
   const [token, setToken] = useState(
@@ -41,10 +40,19 @@ const Login = () => {
             "http://localhost:3000/api/v1/register",
             formData
           );
-          toast.success("Registration successfull");
+          toast.success("Registration successful");
           navigate("/login");
         } catch (err) {
-          toast.error(err.message);
+          if (err.response && err.response.data) {
+            const errorMessage = err.response.data.msg;
+            if (errorMessage === "Email already in use") {
+              toast.error("Email already in use");
+            } else {
+              toast.error(errorMessage);
+            }
+          } else {
+            toast.error("An error occurred. Please try again.");
+          }
         }
       } else {
         toast.error("Passwords don't match");
@@ -56,10 +64,10 @@ const Login = () => {
 
   useEffect(() => {
     if (token !== "") {
-      toast.success("You already logged in");
+      toast.success("You are already logged in");
       navigate("/dashboard");
     }
-  }, []);
+  }, [token]);
 
   return (
     <div className="register-main">
@@ -150,4 +158,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default Register;

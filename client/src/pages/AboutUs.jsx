@@ -1,64 +1,65 @@
 import React from "react";
+import { Link, Element, animateScroll as scroll } from "react-scroll";
 import "../styles/AboutUs.css";
+
 export default function AboutUs() {
   return (
-    <div className="about-us-container">
-      <h1>About Us</h1>
+    <div id="about-us-container">
+      <nav id="about-us-navbar">
+        <ul>
+          <li>
+            <Link to="what-is-uridez" smooth={true} duration={500}>
+              What is Uridez?
+            </Link>
+          </li>
+          <li>
+            <Link to="our-mission" smooth={true} duration={500}>
+              Our Mission
+            </Link>
+          </li>
+          <li>
+            <Link to="team" smooth={true} duration={500}>
+              Our Team
+            </Link>
+          </li>
+        </ul>
+      </nav>
 
-      <div className="about-us-content">
-        <nav className="about-us-nav">
-          <a href="#our-mission">Our Mission</a>
-          <a href="#how-it-works">How It Works</a>
-          <a href="#safety">Safety</a>
-          <a href="#contact-us">Contact Us</a>
-        </nav>
+      <Element name="what-is-uridez" className="about-us-section">
+        <h2>What is Uridez?</h2>
+        <p>
+          Welcome to our ride-sharing platform exclusively for university
+          students! We provide a safer and more reliable transportation
+          alternative by allowing only verified university students as both
+          drivers and passengers. This creates a trusted community where you can
+          feel secure.
+        </p>
+        <img src="path/to/your/image.jpg" alt="Uridez" />
+      </Element>
 
-        <div className="about-us-sections">
-          <section id="our-mission" className="about-us-section fade-in">
-            <h2>Our Mission</h2>
-            <p>
-              Welcome to our ride-sharing platform exclusively for university
-              students! We provide a safer and more reliable transportation
-              alternative by allowing only verified university students as both
-              drivers and passengers. This creates a trusted community where you
-              can feel secure.
-            </p>
-          </section>
-          <br></br>
+      <Element name="our-mission" className="about-us-section">
+        <h2>Our Mission</h2>
+        <p>
+          Our mission is to create a safe, reliable, and affordable
+          transportation option for university students. We aim to foster a
+          community of trust and convenience.
+        </p>
+        <img src="path/to/your/image.jpg" alt="Mission" />
+      </Element>
 
-          <section id="how-it-works" className="about-us-section fade-in">
-            <h2>How It Works</h2>
-            <p>
-              Our platform ensures quality control by allowing passengers to
-              rate their drivers after each ride. Drivers can post ride offers,
-              detailing their destination, available seats, and proposed price.
-              Passengers can then respond to these offers via an integrated chat
-              system to discuss trip specifics and negotiate the price.
-            </p>
-          </section>
-          <br></br>
-          <section id="safety" className="about-us-section fade-in">
-            <h2>Safety</h2>
-            <p>
-              Safety is our top priority. We verify the identity of all
-              university students through their student IDs and email addresses,
-              ensuring that only legitimate students can use our services as
-              both drivers and passengers.
-            </p>
-          </section>
-          <br></br>
-          <section id="contact-us" className="about-us-section fade-in">
-            <h2>Contact Us</h2>
-            <p>
-              Have questions or need support? Feel free to reach out to us at{" "}
-              <a href="mailto:support@rideshareuniversity.com">
-                support@rideshareuniversity.com
-              </a>
-              .
-            </p>
-          </section>
-        </div>
-      </div>
+      <Element name="team" className="about-us-section">
+        <h2>Our Team</h2>
+        <p>
+          Meet the dedicated team behind Uridez. Our team is committed to
+          providing the best service and ensuring the safety and satisfaction of
+          our users.
+        </p>
+        <img src="path/to/your/image.jpg" alt="Team" />
+      </Element>
+
+      <button id="back-to-top" onClick={() => scroll.scrollToTop()}>
+        Back to Top
+      </button>
     </div>
   );
 }

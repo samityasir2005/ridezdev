@@ -24,7 +24,7 @@ const login = async (req, res) => {
       return res.status(400).json({ msg: "Bad password" });
     }
   } else {
-    return res.status(400).json({ msg: "Bad credentails" });
+    return res.status(400).json({ msg: "Username not found" });
   }
 };
 

@@ -4,6 +4,8 @@ import { Link } from "react-router-dom";
 import { useLoadScript } from "@react-google-maps/api";
 import { Autocomplete } from "@react-google-maps/api";
 import abs from "../assets/pp.jpg";
+import redCar from "../assets/red_car.png"; // Import the red car image
+
 const libraries = ["places"];
 
 const Landing = () => {
@@ -20,6 +22,8 @@ const Landing = () => {
         <img src={abs} alt="Campus" className="campus-image" />
       </div>
       <div className="right-side">
+        <img src={redCar} alt="Red Car" className="red-car" />{" "}
+        {/* Add the red car image */}
         <h1>Uridez: Your Campus, Your Commute, Your Community!</h1>
         <form className="ride-form">
           <label htmlFor="from">From:</label>

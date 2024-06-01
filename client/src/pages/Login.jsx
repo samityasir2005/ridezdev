@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Image from "../assets/laurier-logo.jpg";
 import Logo from "../assets/logo.png";
-import { FaEye } from "react-icons/fa6";
-import { FaEyeSlash } from "react-icons/fa6";
+import { FaEye, FaEyeSlash } from "react-icons/fa6";
 import "../styles/Login.css";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
@@ -37,7 +36,18 @@ const Login = () => {
         window.location.reload();
       } catch (err) {
         console.log(err);
-        toast.error(err.message);
+        if (err.response && err.response.data) {
+          const errorMessage = err.response.data.msg;
+          if (errorMessage === "Bad password") {
+            toast.error("Incorrect password, Please try again");
+          } else if (errorMessage === "Bad credentials") {
+            toast.error("User does not exist");
+          } else {
+            toast.error(errorMessage);
+          }
+        } else {
+          toast.error("An error occurred. Please try again.");
+        }
       }
     } else {
       toast.error("Please fill all inputs");
@@ -46,10 +56,10 @@ const Login = () => {
 
   useEffect(() => {
     if (token !== "") {
-      toast.success("You already logged in");
+      toast.success("You are already logged in");
       navigate("/dashboard");
     }
-  }, [token]); // Add token as a dependency
+  }, [token]);
 
   return (
     <div className="login-main">

@@ -24,6 +24,15 @@
   flex: 1;
   padding: 20px;
   text-align: center;
+  position: relative; /* Add this to position the red car */
+}
+
+.red-car {
+  position: absolute;
+  top: -20px; /* Adjust the position as needed */
+  left: 0;
+  width: 50px; /* Adjust the size as needed */
+  animation: moveCar 4s linear forwards; /* Add the animation */
 }
 
 h1 {
@@ -82,5 +91,20 @@ h1 {
   to {
     transform: translateY(0);
     opacity: 1;
+  }
+}
+
+@keyframes moveCar {
+  0% {
+    left: 0;
+    opacity: 1;
+  }
+  90% {
+    left: 90%; /* Stop before the edge of the screen */
+    opacity: 1;
+  }
+  100% {
+    left: 90%;
+    opacity: 0;
   }
 }

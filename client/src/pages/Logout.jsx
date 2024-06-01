@@ -14,6 +14,7 @@ const Logout = () => {
         if (prevTime <= 1) {
           clearInterval(interval);
           navigate("/");
+          window.location.reload();
           return 0;
         }
         return prevTime - 1;
