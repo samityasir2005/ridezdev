@@ -31,23 +31,23 @@ const router = createBrowserRouter([
       },
       {
         path: "register",
-        element: <Register style={{ marginTop: "100px" }} />,
+        element: <Register />,
       },
       {
         path: "dashboard",
-        element: <Dashboard style={{ marginTop: "56px" }} />,
+        element: <Dashboard />,
       },
       {
         path: "logout",
-        element: <Logout style={{ marginTop: "56px" }} />,
+        element: <Logout />,
       },
       {
         path: "about",
-        element: <AboutUs style={{ marginTop: "56px" }} />,
+        element: <AboutUs />,
       },
       {
         path: "createpost",
-        element: <CreatePost style={{ marginTop: "56px" }} />, // Add the CreatePost route
+        element: <CreatePost />,
       },
     ],
   },

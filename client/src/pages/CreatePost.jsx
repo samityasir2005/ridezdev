@@ -22,7 +22,6 @@ function CreatePost() {
     <div>
       {user ? (
         <div>
-          <br />
           <p>Logged in as, {user.name}</p>
         </div>
       ) : (
