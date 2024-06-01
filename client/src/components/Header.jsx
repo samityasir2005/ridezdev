@@ -35,7 +35,7 @@ export default function Header() {
                   Find Rides
                 </NavDropdown.Item>
                 <NavDropdown.Divider />
-                <NavDropdown.Item href="#action/3.4">
+                <NavDropdown.Item href="/createpost">
                   Post Rides
                 </NavDropdown.Item>
               </NavDropdown>

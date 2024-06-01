@@ -1,6 +1,9 @@
+// src/App.jsx
+import React from "react";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import Header from "./components/Header";
 import "bootstrap/dist/css/bootstrap.min.css";
+import { ToastContainer } from "react-toastify";
 import {
   Dashboard,
   HomeLayout,
@@ -9,8 +12,9 @@ import {
   Logout,
   Register,
 } from "./pages";
-import { ToastContainer, toast } from "react-toastify";
 import AboutUs from "./pages/AboutUs";
+import CreatePost from "./pages/CreatePost"; // Import your CreatePost component
+import { UserProvider } from "./usercontext/UserContext";
 
 const router = createBrowserRouter([
   {
@@ -37,18 +41,25 @@ const router = createBrowserRouter([
         path: "logout",
         element: <Logout style={{ marginTop: "56px" }} />,
       },
-      { path: "about", element: <AboutUs style={{ marginTop: "56px" }} /> },
+      {
+        path: "about",
+        element: <AboutUs style={{ marginTop: "56px" }} />,
+      },
+      {
+        path: "createpost",
+        element: <CreatePost style={{ marginTop: "56px" }} />, // Add the CreatePost route
+      },
     ],
   },
 ]);
 
 function App() {
   return (
-    <>
+    <UserProvider>
       <Header />
       <RouterProvider router={router} />
       <ToastContainer position="top-center" />
-    </>
+    </UserProvider>
   );
 }
 
