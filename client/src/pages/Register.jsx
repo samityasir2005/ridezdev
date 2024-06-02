@@ -7,8 +7,14 @@ import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { toast } from "react-toastify";
 import { motion } from "framer-motion";
+import zxcvbn from "zxcvbn";
+import PasswordStrengthBar from "react-password-strength-bar";
+
 const Register = () => {
   const [showPassword, setShowPassword] = useState(false);
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [passwordScore, setPasswordScore] = useState(0);
   const navigate = useNavigate();
   const [token, setToken] = useState(
     JSON.parse(localStorage.getItem("auth")) || ""
@@ -19,8 +25,6 @@ const Register = () => {
     let name = e.target.name.value;
     let lastname = e.target.lastname.value;
     let email = e.target.email.value;
-    let password = e.target.password.value;
-    let confirmPassword = e.target.confirmPassword.value;
 
     if (
       name.length > 0 &&
@@ -30,6 +34,12 @@ const Register = () => {
       confirmPassword.length > 0
     ) {
       if (password === confirmPassword) {
+        if (passwordScore < 3) {
+          toast.error(
+            "Password is too weak. Please choose a stronger password."
+          );
+          return;
+        }
         const formData = {
           username: name + " " + lastname,
           email,
@@ -69,6 +79,13 @@ const Register = () => {
     }
   }, [token]);
 
+  const handlePasswordChange = (e) => {
+    const newPassword = e.target.value;
+    setPassword(newPassword);
+    const result = zxcvbn(newPassword);
+    setPasswordScore(result.score);
+  };
+
   return (
     <div className="register-main">
       <div className="register-left">
@@ -106,6 +123,8 @@ const Register = () => {
                   type={showPassword ? "text" : "password"}
                   placeholder="Password"
                   name="password"
+                  value={password}
+                  onChange={handlePasswordChange}
                   required={true}
                 />
                 {showPassword ? (
@@ -122,11 +141,14 @@ const Register = () => {
                   />
                 )}
               </div>
+              <PasswordStrengthBar password={password} />
               <div className="pass-input-div">
                 <input
                   type={showPassword ? "text" : "password"}
                   placeholder="Confirm Password"
                   name="confirmPassword"
+                  value={confirmPassword}
+                  onChange={(e) => setConfirmPassword(e.target.value)}
                   required={true}
                 />
                 {showPassword ? (
