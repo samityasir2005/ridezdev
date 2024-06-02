@@ -6,7 +6,6 @@ import "../styles/Register.css";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { toast } from "react-toastify";
-import { motion } from "framer-motion";
 import zxcvbn from "zxcvbn";
 import PasswordStrengthBar from "react-password-strength-bar";
 
