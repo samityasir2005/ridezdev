@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import Image from "../assets/laurier-logo.jpg";
-import Logo from "../assets/logo.png";
 import { FaEye, FaEyeSlash } from "react-icons/fa6";
 import "../styles/Login.css";
 import { Link, useNavigate } from "react-router-dom";
@@ -69,7 +68,7 @@ const Login = () => {
       <div className="login-right">
         <div className="login-right-container">
           <div className="login-logo">
-            <img src={Logo} alt="" />
+            <img src="/logo.svg" alt="" />
           </div>
           <div className="login-center">
             <h2>Welcome back!</h2>

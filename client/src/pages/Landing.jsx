@@ -1,10 +1,9 @@
 import React from "react";
 import "../styles/Landing.css";
-import { Link } from "react-router-dom";
 import { useLoadScript } from "@react-google-maps/api";
 import { Autocomplete } from "@react-google-maps/api";
-import abs from "../assets/pp.jpg";
-import redCar from "../assets/red_car.png"; // Import the red car image
+import abs from "../assets/pp.png";
+import redCar from "../assets/red_car.png";
 
 const libraries = ["places"];
 
@@ -14,7 +13,7 @@ const Landing = () => {
     libraries,
   });
 
-  if (!isLoaded) return <div>Loading...</div>;
+  if (!isLoaded) return <div className="loading-spinner"></div>;
 
   return (
     <div className="landing-main">
@@ -22,9 +21,8 @@ const Landing = () => {
         <img src={abs} alt="Campus" className="campus-image" />
       </div>
       <div className="right-side">
-        <img src={redCar} alt="Red Car" className="red-car" />{" "}
-        {/* Add the red car image */}
-        <h1>Uridez: Your Campus, Your Commute, Your Community!</h1>
+        <img src={redCar} alt="Red Car" className="red-car" />
+        <h1>Your Campus, Your Commute, Your Community!</h1>
         <form className="ride-form">
           <label htmlFor="from">From:</label>
           <Autocomplete>

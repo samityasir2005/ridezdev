@@ -21,10 +21,18 @@ export default function Header() {
   }, []);
 
   return (
-    <div style={{ paddingBottom: "30px" }}>
+    <div style={{ paddingBottom: "10px" }}>
       <Navbar expand="lg" className="bg-body-tertiary" fixed="top">
         <Container>
-          <Navbar.Brand href="/">Uridez</Navbar.Brand>
+          <Navbar.Brand href="/">
+            <img
+              src="/logo.svg"
+              width="40"
+              height="40"
+              className="d-inline-block align-top"
+            />{" "}
+            Uridez
+          </Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="me-auto">

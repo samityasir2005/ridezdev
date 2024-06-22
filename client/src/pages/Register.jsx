@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import Image from "../assets/laurier-logo.jpg";
-import Logo from "../assets/logo.png";
 import { FaEye, FaEyeSlash } from "react-icons/fa6";
 import "../styles/Register.css";
 import { Link, useNavigate } from "react-router-dom";
@@ -93,7 +92,7 @@ const Register = () => {
       <div className="register-right">
         <div className="register-right-container">
           <div className="register-logo">
-            <img src={Logo} alt="" />
+            <img src="/logo.svg" alt="" />
           </div>
           <div className="register-center">
             <h2>Welcome to Ridez!</h2>
