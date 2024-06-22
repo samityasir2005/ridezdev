@@ -15,6 +15,7 @@ import {
 import AboutUs from "./pages/AboutUs";
 import CreatePost from "./pages/CreatePost";
 import { UserProvider } from "./usercontext/UserContext";
+import { ProSidebarProvider } from "react-pro-sidebar";
 
 const router = createBrowserRouter([
   {
@@ -55,11 +56,13 @@ const router = createBrowserRouter([
 
 function App() {
   return (
-    <UserProvider>
-      <Header />
-      <RouterProvider router={router} />
-      <ToastContainer position="top-center" />
-    </UserProvider>
+    <ProSidebarProvider>
+      <UserProvider>
+        <Header />
+        <RouterProvider router={router} />
+        <ToastContainer position="top-center" />
+      </UserProvider>
+    </ProSidebarProvider>
   );
 }
 

@@ -1,15 +1,19 @@
-.dashboard-main {
-  font-size: 30px;
-  padding-top: 25vh;
+/* src/styles/Dashboard.css */
+.dashboard-container {
   display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
+  height: 100vh;
+  padding-top: 70px; /* Add padding to avoid cutting under the navbar */
 }
 
-.dashboard-main p {
-  font-size: 20px;
-  padding: 0 20px;
+.dashboard-content {
+  flex: 1;
+  padding: 20px;
+}
+
+.dashboard-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .logout-button {
@@ -18,16 +22,11 @@
   border: 3px solid black;
   transition: background 1s linear 0ms;
   transition: color 500ms linear 0ms;
-
-  width: 500px;
-  padding: 16px;
+  width: 150px;
+  padding: 10px;
   border-radius: 4px;
   cursor: pointer;
-  border-radius: 30px;
   font-weight: 600;
-  margin-top: 10px;
-
-  font-size: 20px;
   text-align: center;
   text-decoration: none;
 }
@@ -37,9 +36,58 @@
   background-color: white;
 }
 
+.user-profile {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 20px;
+}
+
 .profile-pic {
   width: 100px;
   height: 100px;
   border-radius: 50%;
   object-fit: cover;
+}
+
+.verify-email-button,
+.reset-password-button {
+  background: #007bff;
+  color: white;
+  border: none;
+  padding: 10px;
+  margin-right: 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 10px;
+  transition: background 0.3s;
+}
+
+.verify-email-button:hover,
+.reset-password-button:hover {
+  background: #0056b3;
+}
+
+.user-settings-form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.user-settings-form label {
+  display: flex;
+  flex-direction: column;
+  font-size: 16px;
+  color: #333;
+}
+
+.user-settings-form input,
+.user-settings-form select {
+  padding: 4px; /* Make the input fields smaller */
+  font-size: 14px; /* Adjust font size */
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  width: 100%; /* Ensure full width */
+  max-width: 900px; /* Limit the maximum width */
 }

@@ -31,7 +31,7 @@ export default function Header() {
               height="40"
               className="d-inline-block align-top"
             />{" "}
-            Uridez
+            Urid
           </Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">

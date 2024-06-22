@@ -40,7 +40,7 @@
 
 .register-logo {
   align-self: center;
-  padding-top: 50px;
+  padding-top: 20em;
 }
 
 .register-center {
@@ -136,9 +136,9 @@ form button[type="submit"] {
 }
 
 .register-center-buttons button:nth-child(1) {
-  background-color: black;
+  background-color: #fc3636;
   color: white;
-  border: 3px solid black;
+  border: 3px solid rgb(255, 97, 97);
   transition: background 1s linear 0ms;
   transition: color 500ms linear 0ms;
 }
