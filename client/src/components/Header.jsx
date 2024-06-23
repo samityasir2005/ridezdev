@@ -21,7 +21,7 @@ export default function Header() {
   }, []);
 
   return (
-    <div style={{ paddingBottom: "10px" }}>
+    <div>
       <Navbar expand="lg" className="bg-body-tertiary" fixed="top">
         <Container>
           <Navbar.Brand href="/">
@@ -40,11 +40,11 @@ export default function Header() {
               <Nav.Link href="/about">About Us</Nav.Link>
               <NavDropdown title="Rides" id="basic-nav-dropdown">
                 <NavDropdown.Item href="#action/3.3">
-                  Find Rides
+                  Post Rides
                 </NavDropdown.Item>
                 <NavDropdown.Divider />
                 <NavDropdown.Item href="/createpost">
-                  Post Rides
+                  Find Rides
                 </NavDropdown.Item>
               </NavDropdown>
               {token ? (

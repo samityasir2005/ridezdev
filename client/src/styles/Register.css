@@ -1,12 +1,12 @@
 .register-main {
   display: flex;
-  padding-top: 30px;
+  padding-top: 10px;
 }
 
 .register-left {
   flex-grow: 1;
-  height: 92vh;
-  background-color: #ffffff;
+  height: 96.6vh;
+  background-color: #fff;
 
   display: flex;
   justify-content: center;

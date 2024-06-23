@@ -1,5 +1,6 @@
 .login-main {
   display: flex;
+  padding-top: 10px;
 }
 
 .login-left {
@@ -17,7 +18,7 @@
 }
 
 .login-right {
-  height: 96.6vh;
+  height: 98vh;
   background-color: #fff;
   flex-grow: 1;
 }

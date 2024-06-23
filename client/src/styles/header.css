@@ -1,0 +1,46 @@
+/* Header.css */
+.custom-navbar {
+  background-color: #343a40; /* Dark background for a professional look */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+  z-index: 1000; /* Ensure it stays on top of other elements */
+}
+
+.custom-navbar .navbar-brand {
+  color: #ffffff;
+  font-weight: bold;
+}
+
+.custom-navbar .navbar-brand img {
+  margin-right: 10px;
+}
+
+.custom-navbar .nav-link {
+  color: #ffffff;
+  transition: color 0.3s ease;
+}
+
+.custom-navbar .nav-link:hover {
+  color: #adb5bd; /* Lighter color on hover */
+}
+
+.custom-navbar .navbar-toggler {
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+.custom-navbar .navbar-toggler-icon {
+  background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba%28255, 255, 255, 0.5%29' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
+}
+
+.custom-navbar .dropdown-menu {
+  background-color: #343a40;
+  border: none;
+}
+
+.custom-navbar .dropdown-item {
+  color: #ffffff;
+}
+
+.custom-navbar .dropdown-item:hover {
+  background-color: #495057;
+  color: #ffffff;
+}
