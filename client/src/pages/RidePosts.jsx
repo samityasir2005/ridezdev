@@ -5,6 +5,12 @@ import { toast } from "react-toastify";
 import "../styles/RidePost.css";
 import Slider from "rc-slider";
 import "rc-slider/assets/index.css";
+import { Link } from "react-router-dom";
+import { library } from "@fortawesome/fontawesome-svg-core";
+import { faPlus } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
+library.add(faPlus);
 
 function RidePosts() {
   const [posts, setPosts] = useState([]);
@@ -73,7 +79,13 @@ function RidePosts() {
 
   return (
     <div className="ride-posts-container">
-      <h1>Ride Posts</h1>
+      <div className="header">
+        <h1>Ride Posts</h1>
+        <Link to="/createpost" className="create-post-btn">
+          <FontAwesomeIcon icon={faPlus} />
+          <span>Create Post</span>
+        </Link>
+      </div>
       <div className="search-container">
         <input
           type="text"
@@ -87,12 +99,16 @@ function RidePosts() {
         </button>
       </div>
       <div className="advanced-filters">
-        <button
+        <a
+          href="#"
           className="advanced-filters-toggle"
-          onClick={() => setShowAdvancedFilters(!showAdvancedFilters)}
+          onClick={(e) => {
+            e.preventDefault();
+            setShowAdvancedFilters(!showAdvancedFilters);
+          }}
         >
           {showAdvancedFilters ? "Hide" : "Show"} Advanced Filters
-        </button>
+        </a>
         {showAdvancedFilters && (
           <div className="advanced-filters-content">
             <div className="filter-group">
