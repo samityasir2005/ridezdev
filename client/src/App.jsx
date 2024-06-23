@@ -14,6 +14,7 @@ import {
 } from "./pages";
 import AboutUs from "./pages/AboutUs";
 import CreatePost from "./pages/CreatePost";
+import RidePosts from "./pages/RidePosts";
 import { UserProvider } from "./usercontext/UserContext";
 import { ProSidebarProvider } from "react-pro-sidebar";
 
@@ -49,6 +50,10 @@ const router = createBrowserRouter([
       {
         path: "createpost",
         element: <CreatePost />,
+      },
+      {
+        path: "rideposts",
+        element: <RidePosts />,
       },
     ],
   },

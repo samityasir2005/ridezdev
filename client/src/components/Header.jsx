@@ -39,11 +39,11 @@ export default function Header() {
               <Nav.Link href="/">Home</Nav.Link>
               <Nav.Link href="/about">About Us</Nav.Link>
               <NavDropdown title="Rides" id="basic-nav-dropdown">
-                <NavDropdown.Item href="#action/3.3">
+                <NavDropdown.Item href="/createpost">
                   Post Rides
                 </NavDropdown.Item>
                 <NavDropdown.Divider />
-                <NavDropdown.Item href="/createpost">
+                <NavDropdown.Item href="/rideposts">
                   Find Rides
                 </NavDropdown.Item>
               </NavDropdown>

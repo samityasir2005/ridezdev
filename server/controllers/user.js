@@ -11,6 +11,7 @@ const login = async (req, res) => {
   }
 
   let foundUser = await User.findOne({ email: req.body.email });
+
   if (foundUser) {
     const isMatch = await foundUser.comparePassword(password);
 
@@ -46,20 +47,22 @@ const dashboard = async (req, res) => {
 
 const getAllUsers = async (req, res) => {
   let users = await User.find({});
-
   return res.status(200).json({ users });
 };
 
 const register = async (req, res) => {
   let foundUser = await User.findOne({ email: req.body.email });
+
   if (foundUser === null) {
     let { username, email, password } = req.body;
+
     if (username.length && email.length && password.length) {
       const person = new User({
         name: username,
         email: email,
         password: password,
       });
+
       await person.save();
       return res.status(201).json({ person });
     } else {

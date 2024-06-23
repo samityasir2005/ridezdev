@@ -1,0 +1,10 @@
+.post-card {
+  border: 1px solid #ddd;
+  padding: 15px;
+  margin-bottom: 15px;
+  border-radius: 5px;
+}
+
+.post-card h2 {
+  margin-top: 0;
+}
