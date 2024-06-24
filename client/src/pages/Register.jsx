@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import Image from "../assets/back.png";
+import Image from "../assets/laurier-logo.jpg";
 import { FaEye, FaEyeSlash } from "react-icons/fa6";
 import "../styles/Register.css";
 import { Link, useNavigate } from "react-router-dom";
@@ -7,6 +7,7 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import zxcvbn from "zxcvbn";
 import PasswordStrengthBar from "react-password-strength-bar";
+import { bannedWords } from "../data/bannedwords";
 
 const Register = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -18,11 +19,32 @@ const Register = () => {
     JSON.parse(localStorage.getItem("auth")) || ""
   );
 
+  const validateName = (name) => {
+    const nameRegex = /^[a-zA-Z\s]+$/;
+    if (!nameRegex.test(name)) {
+      toast.error("Name should not contain special characters or numbers");
+      return false;
+    }
+    if (
+      bannedWords.some((word) =>
+        name.toLowerCase().includes(word.toLowerCase())
+      )
+    ) {
+      toast.error("Name contains inappropriate words");
+      return false;
+    }
+    return true;
+  };
+
   const handleRegisterSubmit = async (e) => {
     e.preventDefault();
     let name = e.target.name.value;
     let lastname = e.target.lastname.value;
     let email = e.target.email.value;
+
+    if (!validateName(name) || !validateName(lastname)) {
+      return;
+    }
 
     if (
       name.length > 0 &&
@@ -75,7 +97,7 @@ const Register = () => {
       toast.success("You are already logged in");
       navigate("/dashboard");
     }
-  }, [token]);
+  }, [token, navigate]);
 
   const handlePasswordChange = (e) => {
     const newPassword = e.target.value;

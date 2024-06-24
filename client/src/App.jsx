@@ -12,7 +12,7 @@ import {
   Logout,
   Register,
 } from "./pages";
-import AboutUs from "./pages/AboutUs";
+import FAQ from "./pages/Faq";
 import CreatePost from "./pages/CreatePost";
 import RidePosts from "./pages/RidePosts";
 import { UserProvider } from "./usercontext/UserContext";
@@ -44,8 +44,8 @@ const router = createBrowserRouter([
         element: <Logout />,
       },
       {
-        path: "about",
-        element: <AboutUs />,
+        path: "faq",
+        element: <FAQ />,
       },
       {
         path: "createpost",

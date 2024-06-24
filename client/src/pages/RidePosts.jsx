@@ -17,7 +17,7 @@ function RidePosts() {
   const [filteredPosts, setFilteredPosts] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [showAdvancedFilters, setShowAdvancedFilters] = useState(false);
-  const [priceFilter, setPriceFilter] = useState([0, 100]);
+  const [priceFilter, setPriceFilter] = useState([0, 300]);
   const [seatsFilter, setSeatsFilter] = useState("");
   const { token } = useContext(UserContext);
   const navigate = useNavigate();
@@ -32,11 +32,11 @@ function RidePosts() {
         setFilteredPosts(response.data.posts);
       } catch (error) {
         if (error.response && error.response.status === 401) {
-          toast.error("Please login or signup to view posts");
+          toast.warning("Please login or signup to view posts");
           navigate("/register");
         } else {
           console.error(error);
-          toast.error("An error occurred while fetching posts");
+          toast.warning("An error occurred while fetching posts");
         }
       }
     };
@@ -44,7 +44,7 @@ function RidePosts() {
     if (token) {
       fetchPosts();
     } else {
-      toast.error("Please login or signup to view posts");
+      toast.warning("Please login or signup to view posts");
       navigate("/register");
     }
   }, [token, navigate]);
@@ -81,11 +81,22 @@ function RidePosts() {
     if (filterType === "search") {
       setSearchTerm("");
     } else if (filterType === "price") {
-      setPriceFilter([0, 100]);
+      setPriceFilter([0, 300]);
     } else if (filterType === "seats") {
       setSeatsFilter("");
     }
     handleSearch();
+  };
+
+  const handlePriceChange = (values) => {
+    const [min, max] = values;
+    if (min === 0 && max < 10) {
+      setPriceFilter([0, 10]);
+    } else if (min < 10 && min !== 0) {
+      setPriceFilter([10, max]);
+    } else {
+      setPriceFilter(values);
+    }
   };
 
   return (
@@ -127,9 +138,10 @@ function RidePosts() {
               <Slider
                 range
                 min={0}
-                max={100}
+                max={300}
                 value={priceFilter}
-                onChange={(values) => setPriceFilter(values)}
+                onChange={handlePriceChange}
+                step={1}
               />
               <div className="price-labels">
                 <span>${priceFilter[0]}</span>
@@ -147,7 +159,6 @@ function RidePosts() {
                 <option value="1">1</option>
                 <option value="2">2</option>
                 <option value="3">3</option>
-                <option value="4">4</option>
                 <option value="4+">4+</option>
               </select>
             </div>
@@ -164,13 +175,12 @@ function RidePosts() {
             <button onClick={() => handleClearFilter("search")}>x</button>
           </span>
         )}
-        {priceFilter[0] !== 0 ||
-          (priceFilter[1] !== 100 && (
-            <span className="filter-tag">
-              Price: ${priceFilter[0]} - ${priceFilter[1]}
-              <button onClick={() => handleClearFilter("price")}>x</button>
-            </span>
-          ))}
+        {(priceFilter[0] !== 0 || priceFilter[1] !== 300) && (
+          <span className="filter-tag">
+            Price: ${priceFilter[0]} - ${priceFilter[1]}
+            <button onClick={() => handleClearFilter("price")}>x</button>
+          </span>
+        )}
         {seatsFilter && (
           <span className="filter-tag">
             Seats: {seatsFilter}

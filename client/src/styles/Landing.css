@@ -24,12 +24,13 @@
   flex: 1;
   padding: 20px;
   text-align: center;
-  position: relative; /* Add this to position the red car */
+  position: relative;
+  overflow: hidden;
 }
 
 .red-car {
   position: absolute;
-  top: 14px; /* Adjusted to touch the heading */
+  top: 14px;
   left: 50%;
   transform: translateX(-50%);
   width: 50px;
@@ -57,13 +58,14 @@ h1 {
 }
 
 .ride-form input {
-  padding: 10px;
-  margin-bottom: 20px;
-  width: 80%;
-  max-width: 300px;
+  padding: 8px;
+  margin-bottom: 15px;
+  width: 70%;
+  max-width: 250px;
   border: 1px solid #ccc;
-  border-radius: 5px;
+  border-radius: 4px;
   transition: border-color 0.3s ease;
+  font-size: 14px;
 }
 
 .ride-form input:focus {
@@ -72,11 +74,11 @@ h1 {
 }
 
 .ride-form button {
-  padding: 10px 20px;
+  padding: 8px 16px;
   background-color: #fc3636;
   color: white;
   border: none;
-  border-radius: 5px;
+  border-radius: 4px;
   font-size: 14px;
   cursor: pointer;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -85,8 +87,9 @@ h1 {
 }
 
 .ride-form button:hover {
-  background-color: #8ac7c7;
+  background-color: #f86666;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transform: translateY(-2px);
 }
 
 @keyframes fadeIn {
@@ -114,12 +117,12 @@ h1 {
     left: 0;
     opacity: 1;
   }
-  90% {
-    left: 90%;
+  80% {
+    left: 80%;
     opacity: 1;
   }
   100% {
-    left: 90%;
+    left: 80%;
     opacity: 0;
   }
 }
