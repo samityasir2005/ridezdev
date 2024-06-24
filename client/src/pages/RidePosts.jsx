@@ -5,7 +5,7 @@ import { toast } from "react-toastify";
 import "../styles/RidePost.css";
 import Slider from "rc-slider";
 import "rc-slider/assets/index.css";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -20,6 +20,7 @@ function RidePosts() {
   const [priceFilter, setPriceFilter] = useState([0, 100]);
   const [seatsFilter, setSeatsFilter] = useState("");
   const { token } = useContext(UserContext);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchPosts = async () => {
@@ -30,13 +31,23 @@ function RidePosts() {
         setPosts(response.data.posts);
         setFilteredPosts(response.data.posts);
       } catch (error) {
-        toast.error("Error fetching posts");
-        console.error(error);
+        if (error.response && error.response.status === 401) {
+          toast.error("Please login or signup to view posts");
+          navigate("/register");
+        } else {
+          console.error(error);
+          toast.error("An error occurred while fetching posts");
+        }
       }
     };
 
-    fetchPosts();
-  }, [token]);
+    if (token) {
+      fetchPosts();
+    } else {
+      toast.error("Please login or signup to view posts");
+      navigate("/register");
+    }
+  }, [token, navigate]);
 
   const handleSearch = () => {
     let filtered = posts;

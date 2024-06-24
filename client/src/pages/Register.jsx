@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import Image from "../assets/laurier-logo.jpg";
+import Image from "../assets/back.png";
 import { FaEye, FaEyeSlash } from "react-icons/fa6";
 import "../styles/Register.css";
 import { Link, useNavigate } from "react-router-dom";
