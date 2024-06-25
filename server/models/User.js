@@ -1,3 +1,5 @@
+//models/User.js
+
 const mongoose = require("mongoose");
 const bcrypt = require("bcryptjs");
 
@@ -23,6 +25,10 @@ const UserSchema = new mongoose.Schema({
     type: String,
     required: [true, "Please provide password"],
     minlength: 3,
+  },
+  verified: {
+    type: Boolean,
+    default: false,
   },
 });
 

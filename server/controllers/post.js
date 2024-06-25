@@ -14,7 +14,7 @@ const createPost = async (req, res) => {
 
     const post = new Post({
       user: req.user._id,
-      username: req.user.name, // Add this line to save the username
+      username: req.user.name,
       destinationFrom,
       destinationTo,
       timeOfRideShare,

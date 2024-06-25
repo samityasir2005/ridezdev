@@ -1,31 +1,39 @@
 const jwt = require("jsonwebtoken");
 const User = require("../models/User");
+const { generateEmailVerificationToken } = require("../utils/emailToken");
+const { sendVerificationEmail } = require("../utils/sendEmail");
 
 const login = async (req, res) => {
   const { email, password } = req.body;
-
   if (!email || !password) {
     return res.status(400).json({
       msg: "Bad request. Please add email and password in the request body",
     });
   }
 
-  let foundUser = await User.findOne({ email: req.body.email });
-
-  if (foundUser) {
-    const isMatch = await foundUser.comparePassword(password);
-
-    if (isMatch) {
-      const token = jwt.sign({ id: foundUser._id }, process.env.JWT_SECRET, {
-        expiresIn: "30d",
-      });
-
-      return res.status(200).json({ msg: "user logged in", token });
+  try {
+    let foundUser = await User.findOne({ email: req.body.email });
+    if (foundUser) {
+      const isMatch = await foundUser.comparePassword(password);
+      if (isMatch) {
+        if (!foundUser.verified) {
+          return res
+            .status(401)
+            .json({ msg: "Please verify your email before logging in" });
+        }
+        const token = jwt.sign({ id: foundUser._id }, process.env.JWT_SECRET, {
+          expiresIn: "30d",
+        });
+        return res.status(200).json({ msg: "User logged in", token });
+      } else {
+        return res.status(400).json({ msg: "Bad password" });
+      }
     } else {
-      return res.status(400).json({ msg: "Bad password" });
+      return res.status(400).json({ msg: "Username not found" });
     }
-  } else {
-    return res.status(400).json({ msg: "Username not found" });
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ msg: "Server error" });
   }
 };
 
@@ -51,27 +59,66 @@ const getAllUsers = async (req, res) => {
 };
 
 const register = async (req, res) => {
-  let foundUser = await User.findOne({ email: req.body.email });
+  try {
+    let foundUser = await User.findOne({ email: req.body.email });
+    if (foundUser === null) {
+      let { username, email, password } = req.body;
+      if (username.length && email.length && password.length) {
+        const person = new User({
+          name: username,
+          email: email,
+          password: password,
+          verified: false,
+        });
+        await person.save();
 
-  if (foundUser === null) {
-    let { username, email, password } = req.body;
+        const verificationToken = generateEmailVerificationToken(person._id);
+        await sendVerificationEmail(email, verificationToken);
 
-    if (username.length && email.length && password.length) {
-      const person = new User({
-        name: username,
-        email: email,
-        password: password,
-      });
-
-      await person.save();
-      return res.status(201).json({ person });
+        return res.status(201).json({
+          msg: "Registration successful. Please check your email to verify your account.",
+        });
+      } else {
+        return res
+          .status(400)
+          .json({ msg: "Please add all values in the request body" });
+      }
     } else {
-      return res
-        .status(400)
-        .json({ msg: "Please add all values in the request body" });
+      return res.status(400).json({ msg: "Email already in use" });
     }
-  } else {
-    return res.status(400).json({ msg: "Email already in use" });
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ msg: "Server error" });
+  }
+};
+
+const verifyEmail = async (req, res) => {
+  console.log("in verifyEmail");
+
+  try {
+    const { token } = req.params;
+    console.log("Token received:", token);
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    console.log("Decoded token:", decoded);
+    const user = await User.findById(decoded.userId);
+
+    if (!user) {
+      return res.status(404).json({ msg: "User not found" });
+    }
+
+    if (user.verified) {
+      return res.status(400).json({ msg: "Email already verified" });
+    }
+
+    console.log("User before update:", user);
+    user.verified = true;
+    await user.save();
+    console.log("User after update:", user);
+
+    return res.status(200).json({ msg: "Email verified successfully" });
+  } catch (error) {
+    console.error(error);
+    return res.status(400).json({ msg: "Invalid or expired token" });
   }
 };
 
@@ -80,4 +127,5 @@ module.exports = {
   register,
   dashboard,
   getAllUsers,
+  verifyEmail,
 };

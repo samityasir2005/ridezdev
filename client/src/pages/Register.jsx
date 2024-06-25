@@ -71,7 +71,7 @@ const Register = () => {
             formData
           );
           toast.success("Registration successful");
-          navigate("/login");
+          toast.success("Please check your email to verify your account");
         } catch (err) {
           if (err.response && err.response.data) {
             const errorMessage = err.response.data.msg;

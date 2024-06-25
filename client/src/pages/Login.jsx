@@ -29,7 +29,7 @@ const Login = () => {
           formData
         );
         localStorage.setItem("auth", JSON.stringify(response.data.token));
-        setToken(JSON.stringify(response.data.token)); // Update the token state
+        setToken(JSON.stringify(response.data.token));
         toast.success("Login successful");
         navigate("/dashboard");
         window.location.reload();

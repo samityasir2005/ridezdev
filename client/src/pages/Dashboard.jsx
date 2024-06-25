@@ -6,7 +6,7 @@ import { toast } from "react-toastify";
 import { UserContext } from "../usercontext/UserContext";
 import defaultProfilePic from "../assets/profile-pictures/default.jpg";
 import CustomSidebar from "./Sidebar";
-import { universities } from "../data/universities"; // Import the list of universities
+import { universities } from "../data/universities";
 
 const Dashboard = () => {
   const { user, token } = useContext(UserContext);
