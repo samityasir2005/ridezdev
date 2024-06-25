@@ -3,13 +3,9 @@ const jwt = require("jsonwebtoken");
 const User = require("../models/User");
 
 const verifyEmail = async (req, res) => {
-  console.log("in verifyEmail");
-
   try {
     const { token } = req.params;
-    console.log("Token received:", token);
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
-    console.log("Decoded token:", decoded);
     const user = await User.findById(decoded.userId);
 
     if (!user) {
@@ -17,13 +13,11 @@ const verifyEmail = async (req, res) => {
     }
 
     if (user.verified) {
-      return res.status(400).json({ msg: "Email already verified" });
+      return res.status(200).json({ msg: "Email already verified" });
     }
 
-    console.log("User before update:", user);
     user.verified = true;
     await user.save();
-    console.log("User after update:", user);
 
     return res.status(200).json({ msg: "Email verified successfully" });
   } catch (error) {
@@ -31,5 +25,4 @@ const verifyEmail = async (req, res) => {
     return res.status(400).json({ msg: "Invalid or expired token" });
   }
 };
-
 module.exports = { verifyEmail };

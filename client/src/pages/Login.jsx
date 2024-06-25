@@ -32,17 +32,22 @@ const Login = () => {
         setToken(JSON.stringify(response.data.token));
         toast.success("Login successful");
         navigate("/dashboard");
-        window.location.reload();
       } catch (err) {
         console.log(err);
         if (err.response && err.response.data) {
           const errorMessage = err.response.data.msg;
-          if (errorMessage === "Bad password") {
-            toast.error("Incorrect password, Please try again");
-          } else if (errorMessage === "Bad credentials") {
-            toast.error("User does not exist");
-          } else {
-            toast.error(errorMessage);
+          switch (errorMessage) {
+            case "Bad password":
+              toast.error("Incorrect password. Please try again.");
+              break;
+            case "Username not found":
+              toast.error("User does not exist.");
+              break;
+            case "Please verify your email before logging in":
+              toast.error("Please verify your email before logging in.");
+              break;
+            default:
+              toast.error(errorMessage);
           }
         } else {
           toast.error("An error occurred. Please try again.");
@@ -58,7 +63,7 @@ const Login = () => {
       toast.success("You are already logged in");
       navigate("/dashboard");
     }
-  }, [token]);
+  }, [token, navigate]);
 
   return (
     <div className="login-main">
