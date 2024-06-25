@@ -1,30 +1,33 @@
-import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+// client/src/pages/EmailVerification.jsx
+import React, { useEffect } from "react";
+import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
+import { toast } from "react-toastify";
 
 const EmailVerification = () => {
   const { token } = useParams();
-  const [message, setMessage] = useState("");
+  const navigate = useNavigate();
 
   useEffect(() => {
     const verifyEmail = async () => {
       try {
-        const response = await axios.get(`/api/verify-email/${token}`);
-        const { msg } = response.data;
-        setMessage(msg);
+        const response = await axios.get(
+          `http://localhost:3000/api/v1/verify-email/${token}`
+        );
+        toast.success(response.data.msg);
+        navigate("/login");
       } catch (error) {
-        console.error("Email verification failed:", error);
-        setMessage("Email verification failed. Please try again.");
+        console.error(error);
+        toast.error("Email verification failed. Please try again.");
       }
     };
 
     verifyEmail();
-  }, [token]);
+  }, [token, navigate]);
 
   return (
     <div>
-      <h2>Email Verification</h2>
-      {message ? <p>{message}</p> : <p>Verifying your email...</p>}
+      <h1>Verifying your email...</h1>
     </div>
   );
 };

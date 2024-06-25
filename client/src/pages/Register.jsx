@@ -1,3 +1,4 @@
+// client/src/pages/Register.jsx
 import React, { useEffect, useState } from "react";
 import Image from "../assets/laurier-logo.jpg";
 import { FaEye, FaEyeSlash } from "react-icons/fa6";

@@ -13,7 +13,7 @@ const {
   getAllPosts,
 } = require("../controllers/post");
 const authMiddleware = require("../middleware/auth");
-const { verifyEmail } = require("../controllers/user");
+const { verifyEmail } = require("../controllers/userController");
 
 router.post("/register", register);
 router.post("/login", login);
