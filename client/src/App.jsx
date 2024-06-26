@@ -57,7 +57,7 @@ const router = createBrowserRouter([
         element: <RidePosts />,
       },
       {
-        path: "verify-email/:token", // Add the new route for email verification
+        path: "verify-email/:token",
         element: <VerifyEmail />,
       },
     ],

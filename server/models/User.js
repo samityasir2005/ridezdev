@@ -31,6 +31,11 @@ const UserSchema = new mongoose.Schema({
   },
   verificationToken: String,
   verificationTokenExpires: Date,
+  profilePicture: {
+    type: String,
+    default:
+      "https://res.cloudinary.com/djygpfkiu/image/upload/v1719439683/fewjojkqsm2b7jhmfjwq.png",
+  },
 });
 
 UserSchema.pre("save", async function () {

@@ -1,7 +1,6 @@
 const jwt = require("jsonwebtoken");
 const User = require("../models/User");
 const { sendVerificationEmail } = require("../services/emailService");
-
 const login = async (req, res) => {
   const { email, password } = req.body;
 
@@ -75,11 +74,9 @@ const register = async (req, res) => {
 
       try {
         await sendVerificationEmail(person.email, person.verificationToken);
-        return res
-          .status(201)
-          .json({
-            msg: "User registered. Please check your email for verification.",
-          });
+        return res.status(201).json({
+          msg: "User registered. Please check your email for verification.",
+        });
       } catch (error) {
         return res
           .status(500)
