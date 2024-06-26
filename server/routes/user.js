@@ -6,6 +6,7 @@ const {
   register,
   dashboard,
   getAllUsers,
+  verifyEmail,
 } = require("../controllers/user");
 const {
   createPost,
@@ -22,5 +23,6 @@ router.get("/allusers", getAllUsers);
 router.post("/posts", authMiddleware, createPost);
 router.get("/posts/:id", authMiddleware, getPostDetails);
 router.get("/posts", authMiddleware, getAllPosts);
+router.get("/verify-email/:token", verifyEmail);
 
 module.exports = router;

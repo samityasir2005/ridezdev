@@ -1,5 +1,6 @@
 const jwt = require("jsonwebtoken");
 const User = require("../models/User");
+const { sendVerificationEmail } = require("../services/emailService");
 
 const login = async (req, res) => {
   const { email, password } = req.body;
@@ -13,6 +14,12 @@ const login = async (req, res) => {
   let foundUser = await User.findOne({ email: req.body.email });
 
   if (foundUser) {
+    if (!foundUser.verified) {
+      return res
+        .status(400)
+        .json({ msg: "Please verify your email before logging in" });
+    }
+
     const isMatch = await foundUser.comparePassword(password);
 
     if (isMatch) {
@@ -63,8 +70,21 @@ const register = async (req, res) => {
         password: password,
       });
 
+      person.generateVerificationToken();
       await person.save();
-      return res.status(201).json({ person });
+
+      try {
+        await sendVerificationEmail(person.email, person.verificationToken);
+        return res
+          .status(201)
+          .json({
+            msg: "User registered. Please check your email for verification.",
+          });
+      } catch (error) {
+        return res
+          .status(500)
+          .json({ msg: "Error sending verification email. Please try again." });
+      }
     } else {
       return res
         .status(400)
@@ -75,9 +95,32 @@ const register = async (req, res) => {
   }
 };
 
+const verifyEmail = async (req, res) => {
+  const { token } = req.params;
+
+  const user = await User.findOne({
+    verificationToken: token,
+    verificationTokenExpires: { $gt: Date.now() },
+  });
+
+  if (!user) {
+    return res
+      .status(400)
+      .json({ msg: "Invalid or expired verification token" });
+  }
+
+  user.verified = true;
+  user.verificationToken = undefined;
+  user.verificationTokenExpires = undefined;
+  await user.save();
+
+  return res.status(200).json({ msg: "Email verified successfully" });
+};
+
 module.exports = {
   login,
   register,
   dashboard,
   getAllUsers,
+  verifyEmail,
 };

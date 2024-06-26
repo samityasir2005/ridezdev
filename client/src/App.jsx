@@ -15,8 +15,10 @@ import {
 import FAQ from "./pages/Faq";
 import CreatePost from "./pages/CreatePost";
 import RidePosts from "./pages/RidePosts";
+import VerifyEmail from "./pages/VerifyEmail"; // Import the new VerifyEmail component
 import { UserProvider } from "./usercontext/UserContext";
 import { ProSidebarProvider } from "react-pro-sidebar";
+
 const router = createBrowserRouter([
   {
     path: "/",
@@ -53,6 +55,10 @@ const router = createBrowserRouter([
       {
         path: "rideposts",
         element: <RidePosts />,
+      },
+      {
+        path: "verify-email/:token", // Add the new route for email verification
+        element: <VerifyEmail />,
       },
     ],
   },

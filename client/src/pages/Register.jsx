@@ -70,7 +70,9 @@ const Register = () => {
             "http://localhost:3000/api/v1/register",
             formData
           );
-          toast.success("Registration successful");
+          toast.success(
+            "Registration successful. Please check your email for verification."
+          );
           navigate("/login");
         } catch (err) {
           if (err.response && err.response.data) {
