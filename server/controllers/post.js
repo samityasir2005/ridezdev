@@ -33,7 +33,6 @@ const createPost = async (req, res) => {
 
 const getPostDetails = async (req, res) => {
   try {
-    // In your controller where you fetch the post
     const post = await Post.findById(postId).populate("user", "name");
 
     if (!post) {
@@ -43,7 +42,7 @@ const getPostDetails = async (req, res) => {
     res.status(200).json({
       post: {
         ...post.toObject(),
-        username: post.username || post.user.name, // Fallback to user.name if username is not set
+        username: post.username || post.user.name,
       },
     });
   } catch (error) {
