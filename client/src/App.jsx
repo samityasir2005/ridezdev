@@ -17,7 +17,6 @@ import CreatePost from "./pages/CreatePost";
 import RidePosts from "./pages/RidePosts";
 import { UserProvider } from "./usercontext/UserContext";
 import { ProSidebarProvider } from "react-pro-sidebar";
-import EmailVerification from "./components/EmailVerification";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -54,10 +53,6 @@ const router = createBrowserRouter([
       {
         path: "rideposts",
         element: <RidePosts />,
-      },
-      {
-        path: "verify-email/:token",
-        element: <EmailVerification />,
       },
     ],
   },

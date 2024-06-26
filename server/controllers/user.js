@@ -1,39 +1,31 @@
 const jwt = require("jsonwebtoken");
 const User = require("../models/User");
-const { generateEmailVerificationToken } = require("../utils/emailToken");
-const { sendVerificationEmail } = require("../utils/sendEmail");
 
 const login = async (req, res) => {
   const { email, password } = req.body;
+
   if (!email || !password) {
     return res.status(400).json({
       msg: "Bad request. Please add email and password in the request body",
     });
   }
 
-  try {
-    let foundUser = await User.findOne({ email: req.body.email });
-    if (foundUser) {
-      const isMatch = await foundUser.comparePassword(password);
-      if (isMatch) {
-        if (!foundUser.verified) {
-          return res
-            .status(401)
-            .json({ msg: "Please verify your email before logging in" });
-        }
-        const token = jwt.sign({ id: foundUser._id }, process.env.JWT_SECRET, {
-          expiresIn: "30d",
-        });
-        return res.status(200).json({ msg: "User logged in", token });
-      } else {
-        return res.status(400).json({ msg: "Bad password" });
-      }
+  let foundUser = await User.findOne({ email: req.body.email });
+
+  if (foundUser) {
+    const isMatch = await foundUser.comparePassword(password);
+
+    if (isMatch) {
+      const token = jwt.sign({ id: foundUser._id }, process.env.JWT_SECRET, {
+        expiresIn: "30d",
+      });
+
+      return res.status(200).json({ msg: "user logged in", token });
     } else {
-      return res.status(400).json({ msg: "Username not found" });
+      return res.status(400).json({ msg: "Bad password" });
     }
-  } catch (error) {
-    console.error(error);
-    return res.status(500).json({ msg: "Server error" });
+  } else {
+    return res.status(400).json({ msg: "Username not found" });
   }
 };
 
@@ -59,36 +51,27 @@ const getAllUsers = async (req, res) => {
 };
 
 const register = async (req, res) => {
-  try {
-    let foundUser = await User.findOne({ email: req.body.email });
-    if (foundUser === null) {
-      let { username, email, password } = req.body;
-      if (username.length && email.length && password.length) {
-        const person = new User({
-          name: username,
-          email: email,
-          password: password,
-          verified: false,
-        });
-        await person.save();
+  let foundUser = await User.findOne({ email: req.body.email });
 
-        const verificationToken = generateEmailVerificationToken(person._id);
-        await sendVerificationEmail(email, verificationToken);
+  if (foundUser === null) {
+    let { username, email, password } = req.body;
 
-        return res.status(201).json({
-          msg: "Registration successful. Please check your email to verify your account.",
-        });
-      } else {
-        return res
-          .status(400)
-          .json({ msg: "Please add all values in the request body" });
-      }
+    if (username.length && email.length && password.length) {
+      const person = new User({
+        name: username,
+        email: email,
+        password: password,
+      });
+
+      await person.save();
+      return res.status(201).json({ person });
     } else {
-      return res.status(400).json({ msg: "Email already in use" });
+      return res
+        .status(400)
+        .json({ msg: "Please add all values in the request body" });
     }
-  } catch (error) {
-    console.error(error);
-    return res.status(500).json({ msg: "Server error" });
+  } else {
+    return res.status(400).json({ msg: "Email already in use" });
   }
 };
 

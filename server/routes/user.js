@@ -13,13 +13,11 @@ const {
   getAllPosts,
 } = require("../controllers/post");
 const authMiddleware = require("../middleware/auth");
-const { verifyEmail } = require("../controllers/userController");
 
 router.post("/register", register);
 router.post("/login", login);
 router.get("/dashboard", authMiddleware, dashboard);
 router.get("/allusers", getAllUsers);
-router.get("/verify-email/:token", verifyEmail);
 
 router.post("/posts", authMiddleware, createPost);
 router.get("/posts/:id", authMiddleware, getPostDetails);

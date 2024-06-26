@@ -1,4 +1,3 @@
-// client/src/pages/Register.jsx
 import React, { useEffect, useState } from "react";
 import Image from "../assets/laurier-logo.jpg";
 import { FaEye, FaEyeSlash } from "react-icons/fa6";
@@ -72,7 +71,7 @@ const Register = () => {
             formData
           );
           toast.success("Registration successful");
-          toast.success("Please check your email to verify your account");
+          navigate("/login");
         } catch (err) {
           if (err.response && err.response.data) {
             const errorMessage = err.response.data.msg;
