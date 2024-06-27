@@ -57,5 +57,55 @@ const sendVerificationEmail = async (email, verificationToken) => {
     throw error;
   }
 };
+const sendResetPasswordEmail = async (email, resetToken) => {
+  const resetLink = `http://localhost:5173/reset-password/${resetToken}`;
+  const mailgunDomain = process.env.MAILGUN_DOMAIN || "";
 
-module.exports = { sendVerificationEmail };
+  const htmlTemplate = `
+      <!DOCTYPE html>
+      <html lang="en">
+      <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Reset Password</title>
+      </head>
+      <body style="font-family: Arial, sans-serif; line-height: 1.6; color: #333; max-width: 600px; margin: 0 auto; padding: 20px;">
+        <table width="100%" cellpadding="0" cellspacing="0" style="background-color: #f0f8f8; border-radius: 5px;">
+          <tr>
+            <td style="padding: 30px;">
+              <h1 style="color: #008080; margin-bottom: 20px; text-align: center;">Reset Password</h1>
+              <div style="background-color: #ffffff; border-radius: 5px; padding: 20px; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);">
+                <p style="color: #444;">Hello,</p>
+                <p style="color: #444;">You requested to reset your password. Please click the button below to reset your password:</p>
+                <p style="text-align: center; margin-top: 30px;">
+                  <a href="${resetLink}" style="background-color: #ff7f50; color: #ffffff; padding: 12px 24px; text-decoration: none; border-radius: 5px; font-weight: bold; display: inline-block;">Reset Password</a>
+                </p>
+                <p style="color: #666; margin-top: 30px;">If the button doesn't work, you can also copy and paste the following link into your browser:</p>
+                <p><a href="${resetLink}" style="color: #008080; word-break: break-all;">${resetLink}</a></p>
+                <p style="color: #666;">If you didn't request a password reset, you can safely ignore this email.</p>
+              </div>
+              <p style="text-align: center; margin-top: 20px; color: #666;">Best regards,<br>The urid Team</p>
+            </td>
+          </tr>
+        </table>
+      </body>
+      </html>
+    `;
+
+  const mailgunData = {
+    from: `urid <noreply@${mailgunDomain}>`,
+    to: email,
+    subject: "Reset Your Password",
+    html: htmlTemplate,
+  };
+
+  try {
+    await mg.messages.create(process.env.MAILGUN_DOMAIN, mailgunData);
+    console.log("Reset password email sent successfully");
+  } catch (error) {
+    console.error("Error sending reset password email:", error);
+    throw error;
+  }
+};
+
+module.exports = { sendVerificationEmail, sendResetPasswordEmail };

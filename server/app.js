@@ -1,13 +1,13 @@
 require("dotenv").config();
 require("express-async-errors");
-
-const connectDB = require("./db/connect");
 const express = require("express");
 const cors = require("cors");
-const app = express();
+const connectDB = require("./db/connect");
 const mainRouter = require("./routes/user");
 const cron = require("node-cron");
 const Post = require("./models/Post");
+
+const app = express();
 
 // Middleware
 app.use(express.json());

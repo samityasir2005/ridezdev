@@ -8,6 +8,8 @@ const {
   dashboard,
   getAllUsers,
   verifyEmail,
+  forgotPassword,
+  resetPassword,
 } = require("../controllers/user");
 const {
   createPost,
@@ -25,5 +27,6 @@ router.post("/posts", authMiddleware, createPost);
 router.get("/posts/:id", authMiddleware, getPostDetails);
 router.get("/posts", authMiddleware, getAllPosts);
 router.get("/verify-email/:token", verifyEmail);
-
+router.post("/forgot-password", forgotPassword);
+router.post("/reset-password/:token", resetPassword);
 module.exports = router;

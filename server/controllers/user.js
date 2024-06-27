@@ -1,7 +1,10 @@
+//controllers/user.js
+
 const jwt = require("jsonwebtoken");
 const User = require("../models/User");
 const { sendVerificationEmail } = require("../services/emailService");
 const crypto = require("crypto");
+const bcrypt = require("bcryptjs");
 const { sendResetPasswordEmail } = require("../services/emailService");
 const login = async (req, res) => {
   const { email, password } = req.body;
@@ -116,10 +119,57 @@ const verifyEmail = async (req, res) => {
   return res.status(200).json({ msg: "Email verified successfully" });
 };
 
+const forgotPassword = async (req, res) => {
+  const { email } = req.body;
+  if (!email) {
+    return res.status(400).json({ msg: "Please provide an email address" });
+  }
+
+  const user = await User.findOne({ email });
+  if (!user) {
+    return res.status(400).json({ msg: "User not found" });
+  }
+
+  const resetToken = crypto.randomBytes(32).toString("hex");
+  user.resetPasswordToken = resetToken;
+  user.resetPasswordExpires = Date.now() + 3600000; // 1 hour
+  await user.save();
+
+  try {
+    await sendResetPasswordEmail(user.email, resetToken);
+    return res.status(200).json({ msg: "Reset password email sent" });
+  } catch (error) {
+    return res.status(500).json({ msg: "Error sending reset password email" });
+  }
+};
+
+const resetPassword = async (req, res) => {
+  const { token } = req.params;
+  const { newPassword } = req.body;
+
+  const user = await User.findOne({
+    resetPasswordToken: token,
+    resetPasswordExpires: { $gt: Date.now() },
+  });
+
+  if (!user) {
+    return res.status(400).json({ msg: "Invalid or expired reset token" });
+  }
+
+  user.password = newPassword;
+  user.resetPasswordToken = undefined;
+  user.resetPasswordExpires = undefined;
+  await user.save();
+
+  return res.status(200).json({ msg: "Password reset successfully" });
+};
+
 module.exports = {
   login,
   register,
   dashboard,
   getAllUsers,
   verifyEmail,
+  forgotPassword,
+  resetPassword,
 };

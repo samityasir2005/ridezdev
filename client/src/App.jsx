@@ -18,7 +18,8 @@ import RidePosts from "./pages/RidePosts";
 import VerifyEmail from "./pages/VerifyEmail";
 import { UserProvider } from "./usercontext/UserContext";
 import { ProSidebarProvider } from "react-pro-sidebar";
-
+import ForgotPassword from "./pages/ForgotPassword";
+import ResetPassword from "./pages/ResetPassword";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -59,6 +60,14 @@ const router = createBrowserRouter([
       {
         path: "verify-email/:token",
         element: <VerifyEmail />,
+      },
+      {
+        path: "/forgot-password",
+        element: <ForgotPassword />,
+      },
+      {
+        path: "reset-password/:token",
+        element: <ResetPassword />,
       },
     ],
   },

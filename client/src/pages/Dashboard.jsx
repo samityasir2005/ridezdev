@@ -95,7 +95,12 @@ const UserSettings = ({ user }) => {
       <p>Email: {user.email}</p>
       <p>ID: {user.id}</p>
       <button className="verify-email-button">Verify Email</button>
-      <button className="reset-password-button">Reset Password</button>
+      <button
+        className="reset-password-button"
+        onClick={() => (window.location.href = "/forgot-password")}
+      >
+        Reset Password
+      </button>
       <form className="user-settings-form">
         <label>
           University:
