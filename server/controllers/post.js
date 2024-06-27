@@ -33,7 +33,10 @@ const createPost = async (req, res) => {
 
 const getPostDetails = async (req, res) => {
   try {
-    const post = await Post.findById(postId).populate("user", "name");
+    const post = await Post.findById(req.params.postId).populate(
+      "user",
+      "name"
+    );
 
     if (!post) {
       return res.status(404).json({ msg: "Post not found" });
@@ -50,6 +53,7 @@ const getPostDetails = async (req, res) => {
     res.status(500).json({ msg: "Server error" });
   }
 };
+
 const getAllPosts = async (req, res) => {
   try {
     const posts = await Post.find()
@@ -62,8 +66,43 @@ const getAllPosts = async (req, res) => {
   }
 };
 
+const getUserPosts = async (req, res) => {
+  try {
+    const posts = await Post.find({ user: req.user._id }).sort({
+      createdAt: -1,
+    });
+    res.status(200).json({ posts });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ msg: "Server error" });
+  }
+};
+
+const deletePost = async (req, res) => {
+  try {
+    const { postId } = req.params;
+    const post = await Post.findById(postId);
+
+    if (!post) {
+      return res.status(404).json({ msg: "Post not found" });
+    }
+
+    if (post.user.toString() !== req.user._id.toString()) {
+      return res.status(403).json({ msg: "Unauthorized" });
+    }
+
+    await Post.findByIdAndDelete(postId);
+    res.status(200).json({ msg: "Post deleted successfully" });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ msg: "Server error" });
+  }
+};
+
 module.exports = {
   createPost,
   getPostDetails,
   getAllPosts,
+  getUserPosts,
+  deletePost,
 };

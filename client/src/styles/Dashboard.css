@@ -18,7 +18,6 @@
 .logout-button {
   background: #3adde9;
   color: white;
-
   transition: background 1s linear 0ms;
   transition: color 500ms linear 0ms;
   width: 150px;
@@ -88,4 +87,49 @@
   border-radius: 4px;
   width: 100%;
   max-width: 900px;
+}
+
+.post-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.post-card {
+  border: 1px solid #ddd;
+  padding: 20px;
+  border-radius: 10px;
+  background-color: #fff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.post-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.post-card h2 {
+  margin-top: 0;
+  font-size: 20px;
+  color: #333;
+}
+
+.post-card p {
+  margin: 5px 0;
+  color: #666;
+}
+
+.post-card button {
+  padding: 10px 15px;
+  background-color: #fc3636;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.post-card button:hover {
+  background-color: #e72113;
 }
