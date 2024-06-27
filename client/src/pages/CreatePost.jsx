@@ -19,6 +19,7 @@ function CreatePost() {
     seatsAvailable: "1",
     price: "",
   });
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const { isLoaded } = useLoadScript({
     googleMapsApiKey: import.meta.env.VITE_GOOGLE_MAPS_API_KEY,
@@ -76,6 +77,7 @@ function CreatePost() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setIsSubmitting(true);
 
     const isFromValid = await validateAddress(formData.destinationFrom);
     const isToValid = await validateAddress(formData.destinationTo);
@@ -84,6 +86,7 @@ function CreatePost() {
       toast.error(
         "Please enter valid addresses for both 'From' and 'To' fields."
       );
+      setIsSubmitting(false);
       return;
     }
 
@@ -101,6 +104,11 @@ function CreatePost() {
       navigate("/rideposts");
     } catch (error) {
       toast.error(error.response?.data?.msg || "Error creating post");
+    } finally {
+      // Add a delay before re-enabling the button
+      setTimeout(() => {
+        setIsSubmitting(false);
+      }, 5000); // 5 seconds delay
     }
   };
 
@@ -164,7 +172,7 @@ function CreatePost() {
           <option value="1">1 seat</option>
           <option value="2">2 seats</option>
           <option value="3">3 seats</option>
-          <option value="4+">4+ seats</option>
+          <option value="4">4 seats</option>
         </select>
         <CurrencyInput
           id="price"
@@ -177,8 +185,12 @@ function CreatePost() {
           maxLength={6}
           className="create-post__input create-post__input--price"
         />
-        <button type="submit" className="create-post__submit-btn">
-          Create Ride Share
+        <button
+          type="submit"
+          className="create-post__submit-btn"
+          disabled={isSubmitting}
+        >
+          {isSubmitting ? "Create Ride Share" : "Create Ride Share"}
         </button>
       </form>
     </div>

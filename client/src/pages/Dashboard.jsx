@@ -145,6 +145,7 @@ const Preferences = () => (
 const PostSettings = ({ userPosts, onDeletePost }) => (
   <div>
     <h2>Post Settings</h2>
+    <p>Here you can manage your posts.</p>
     {userPosts.length === 0 ? (
       <p>You have no active posts!</p>
     ) : (

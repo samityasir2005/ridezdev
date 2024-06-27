@@ -9,6 +9,22 @@ const createPost = async (req, res) => {
       seatsAvailable,
       price,
     } = req.body;
+
+    // Check if the user has created a post in the last hour
+    const oneHourAgo = new Date();
+    oneHourAgo.setHours(oneHourAgo.getHours() - 1);
+
+    const recentPost = await Post.findOne({
+      user: req.user._id,
+      createdAt: { $gte: oneHourAgo },
+    });
+
+    if (recentPost) {
+      return res
+        .status(429)
+        .json({ msg: "You can only create one post per hour." });
+    }
+
     const expiresAt = new Date(timeOfRideShare);
     expiresAt.setHours(expiresAt.getHours() + 24);
 
