@@ -159,6 +159,7 @@ const PostSettings = ({ userPosts, onDeletePost }) => (
             <p>Price: ${post.price}</p>
             <p>Seats Available: {post.seatsAvailable}</p>
             <p>Posted on: {new Date(post.createdAt).toLocaleString()}</p>
+            <p>Expires on: {new Date(post.expiresAt).toLocaleString()}</p>
             <button onClick={() => onDeletePost(post._id)}>Delete</button>
           </div>
         ))}
