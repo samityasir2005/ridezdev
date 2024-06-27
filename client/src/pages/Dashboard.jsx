@@ -4,6 +4,7 @@ import "../styles/Dashboard.css";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { UserContext } from "../usercontext/UserContext";
+import defaultProfilePic from "../assets/profile-pictures/default.jpg";
 import CustomSidebar from "./Sidebar";
 import { universities } from "../data/universities";
 
@@ -45,6 +46,11 @@ const Dashboard = () => {
         <div className="user-profile">
           {user ? (
             <>
+              <img
+                src={defaultProfilePic}
+                alt="Profile"
+                className="profile-pic"
+              />
               <p>Name: {user.name}</p>
               <p>Email: {user.email}</p>
               <p>ID: {user.id}</p>

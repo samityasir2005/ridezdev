@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from "react";
-import Image from "../assets/back.png";
 import { FaEye, FaEyeSlash } from "react-icons/fa6";
 import "../styles/Login.css";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { toast } from "react-toastify";
-
+import Image from "../assets/back.png";
 const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [token, setToken] = useState(

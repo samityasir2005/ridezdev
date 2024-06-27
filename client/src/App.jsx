@@ -15,7 +15,7 @@ import {
 import FAQ from "./pages/Faq";
 import CreatePost from "./pages/CreatePost";
 import RidePosts from "./pages/RidePosts";
-import VerifyEmail from "./pages/VerifyEmail"; // Import the new VerifyEmail component
+import VerifyEmail from "./pages/VerifyEmail";
 import { UserProvider } from "./usercontext/UserContext";
 import { ProSidebarProvider } from "react-pro-sidebar";
 

@@ -1,6 +1,8 @@
 const jwt = require("jsonwebtoken");
 const User = require("../models/User");
 const { sendVerificationEmail } = require("../services/emailService");
+const crypto = require("crypto");
+const { sendResetPasswordEmail } = require("../services/emailService");
 const login = async (req, res) => {
   const { email, password } = req.body;
 
