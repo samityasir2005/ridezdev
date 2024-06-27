@@ -1,0 +1,67 @@
+.support-chat {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 1000;
+}
+
+.chat-toggle {
+  display: flex;
+  align-items: center;
+  background-color: #3adde9;
+  color: white;
+  border: none;
+  padding: 10px 30px;
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s ease;
+}
+
+.chat-toggle:hover {
+  background-color: #35cad4;
+}
+
+.chat-toggle svg {
+  margin-right: 10px;
+  font-size: 20px;
+}
+
+.chat-window {
+  position: absolute;
+  bottom: 60px;
+  right: 0;
+  width: 300px;
+  height: 400px;
+  background-color: white;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  transform: translateY(20px);
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s ease-in-out;
+  outline: 2px solid #3adde9;
+}
+
+.chat-window.open {
+  transform: translateY(0);
+  opacity: 1;
+  visibility: visible;
+}
+
+.rida-image-container {
+  width: 120px;
+  height: 120px;
+  margin: 20px auto;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 3px solid #e75613;
+}
+
+.rida-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}

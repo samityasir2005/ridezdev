@@ -2,6 +2,7 @@
 import React from "react";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import Header from "./components/Header";
+import SupportChat from "./components/SupportChat";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { ToastContainer } from "react-toastify";
 import {
@@ -81,6 +82,7 @@ function App() {
         <RouterProvider router={router} />
         <ToastContainer position="top-center" />
       </UserProvider>
+      <SupportChat />
     </ProSidebarProvider>
   );
 }

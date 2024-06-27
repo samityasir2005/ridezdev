@@ -5,10 +5,12 @@ import { Autocomplete } from "@react-google-maps/api";
 import abs from "../assets/pp.png";
 import redCar from "../assets/red_car.png";
 import "../styles/Landing.css";
+import { useNavigate } from "react-router-dom";
 
 const libraries = ["places"];
 
 const Landing = () => {
+  const navigate = useNavigate();
   const { isLoaded } = useLoadScript({
     googleMapsApiKey: import.meta.env.VITE_GOOGLE_MAPS_API_KEY,
     libraries,
@@ -25,7 +27,9 @@ const Landing = () => {
       },
     },
   };
-
+  const handleFindRidesClick = () => {
+    navigate("rideposts"); // Assuming '/' is the path for your landing page
+  };
   const itemVariants = {
     hidden: { opacity: 0, y: 20 },
     visible: { opacity: 1, y: 0 },
@@ -93,7 +97,13 @@ const Landing = () => {
             />
           </Autocomplete>
 
-          <motion.button type="submit">Find a Ride</motion.button>
+          <motion.button
+            type="submit"
+            className="ride-form button"
+            onClick={handleFindRidesClick}
+          >
+            Find a Ride
+          </motion.button>
         </motion.form>
       </motion.div>
     </motion.div>

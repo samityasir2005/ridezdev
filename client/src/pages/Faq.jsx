@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import "../styles/Faq.css";
-import uridLogo from "../assets/robotfaq.png";
+import uridLogo from "../assets/Rida/rida-faq.png";
 
 function Faq() {
   const [activeIndex, setActiveIndex] = useState(null);

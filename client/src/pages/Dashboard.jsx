@@ -53,7 +53,6 @@ const Dashboard = () => {
               />
               <p>Name: {user.name}</p>
               <p>Email: {user.email}</p>
-              <p>ID: {user.id}</p>
             </>
           ) : (
             <p>Loading user data...</p>
@@ -93,86 +92,13 @@ const UserSettings = ({ user }) => {
       <h2>User Settings</h2>
       <p>Name: {user.name}</p>
       <p>Email: {user.email}</p>
-      <p>ID: {user.id}</p>
-      <button className="verify-email-button">Verify Email</button>
       <button
         className="reset-password-button"
         onClick={() => (window.location.href = "/forgot-password")}
       >
         Reset Password
       </button>
-      <form className="user-settings-form">
-        <label>
-          University:
-          <select
-            name="university"
-            value={formData.university}
-            onChange={handleChange}
-          >
-            <option value="">Select University</option>
-            {universities.map((uni) => (
-              <option key={uni} value={uni}>
-                {uni}
-              </option>
-            ))}
-          </select>
-        </label>
-        <label>
-          Currently Enrolled:
-          <input
-            type="checkbox"
-            name="enrolled"
-            checked={formData.enrolled}
-            onChange={handleChange}
-          />
-        </label>
-        <label>
-          Year:
-          <input
-            type="text"
-            name="year"
-            value={formData.year}
-            onChange={handleChange}
-          />
-        </label>
-        <label>
-          Date of Birth:
-          <input
-            type="date"
-            name="dob"
-            value={formData.dob}
-            onChange={handleChange}
-            placeholder="dd/mm/yyyy"
-          />
-        </label>
-        <label>
-          Program:
-          <input
-            type="text"
-            name="program"
-            value={formData.program}
-            onChange={handleChange}
-          />
-        </label>
-        <label>
-          Home Address:
-          <input
-            type="text"
-            name="address"
-            value={formData.address}
-            onChange={handleChange}
-          />
-        </label>
-        <label>
-          Phone Number:
-          <input
-            type="text"
-            name="phone"
-            value={formData.phone}
-            onChange={handleChange}
-          />
-        </label>
-      </form>
+      <form className="user-settings-form"></form>
     </div>
   );
 };
