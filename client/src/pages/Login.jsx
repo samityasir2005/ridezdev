@@ -102,7 +102,7 @@ const Login = () => {
                     Remember for 30 days
                   </label>
                 </div>
-                <a href="#" className="forgot-pass-link">
+                <a href="/forgot-password" className="forgot-pass-link">
                   Forgot password?
                 </a>
               </div>

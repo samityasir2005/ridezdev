@@ -1,20 +1,19 @@
-// ResetPassword.jsx
-
-import React, { useState } from "react";
 import axios from "axios";
+import { useState } from "react";
 import { useParams } from "react-router-dom";
 
 const ResetPassword = () => {
+  const { token } = useParams();
   const [newPassword, setNewPassword] = useState("");
   const [message, setMessage] = useState("");
-  const { token } = useParams();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post(`/api/reset-password/${token}`, {
-        newPassword,
-      });
+      const response = await axios.post(
+        `http://localhost:3000/api/v1/reset-password/${token}`,
+        { newPassword }
+      );
       setMessage(response.data.msg);
     } catch (error) {
       setMessage(error.response?.data?.msg || "An error occurred");
@@ -23,14 +22,14 @@ const ResetPassword = () => {
 
   return (
     <div>
-      <h2>Reset Password</h2>
+      <br></br>
+      <br></br>
       <form onSubmit={handleSubmit}>
         <input
           type="password"
           value={newPassword}
           onChange={(e) => setNewPassword(e.target.value)}
-          placeholder="Enter new password"
-          required
+          placeholder="New Password"
         />
         <button type="submit">Reset Password</button>
       </form>
