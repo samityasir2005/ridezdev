@@ -8,7 +8,7 @@ const mg = mailgun.client({
 });
 
 const sendVerificationEmail = async (email, verificationToken) => {
-  const verificationLink = `http://localhost:5173/verify-email/${verificationToken}`;
+  const verificationLink = `https://667f679bf102c1b43cc4e015--radiant-caramel-96dfd0.netlify.app/verify-email/${verificationToken}`;
   const mailgunDomain = process.env.MAILGUN_DOMAIN || "";
 
   const htmlTemplate = `
