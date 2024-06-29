@@ -27,8 +27,9 @@ const Landing = () => {
       },
     },
   };
-  const handleFindRidesClick = () => {
-    navigate("rideposts"); // Assuming '/' is the path for your landing page
+  const handleFindRidesClick = (event) => {
+    event.preventDefault();
+    navigate("rideposts");
   };
   const itemVariants = {
     hidden: { opacity: 0, y: 20 },

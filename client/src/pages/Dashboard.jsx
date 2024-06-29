@@ -12,6 +12,7 @@ const Dashboard = () => {
   const navigate = useNavigate();
   const [activePanel, setActivePanel] = useState("userSettings");
   const [userPosts, setUserPosts] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     if (!token) {
@@ -34,6 +35,8 @@ const Dashboard = () => {
     } catch (error) {
       console.error(error);
       toast.error("Failed to fetch user posts");
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -90,7 +93,7 @@ const Dashboard = () => {
             <p>Loading user data...</p>
           )}
         </div>
-        {renderPanel()}
+        {loading ? <div className="loading-spinner"></div> : renderPanel()}
       </div>
     </div>
   );
