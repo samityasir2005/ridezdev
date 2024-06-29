@@ -39,7 +39,7 @@ function Faq() {
     {
       question: "What if I have more questions?",
       answer:
-        "If you have additional questions, please don't hesitate to contact our support team. You can reach us through the 'Contact Us' page on our website, or email us directly at support@urid.com. We're here to help!",
+        "If you have additional questions, please don't hesitate to contact our support team. You can reach us through the 'Contact Us' page on our website, or email us directly at support@urid.ca. We're here to help!",
     },
   ];
 
