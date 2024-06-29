@@ -17,7 +17,7 @@ const {
   deletePost,
 } = require("../controllers/post");
 const authMiddleware = require("../middleware/auth");
-
+const pingRouter = require("../controllers/ping");
 router.post("/register", register);
 router.post("/login", login);
 router.get("/dashboard", authMiddleware, dashboard);
@@ -30,5 +30,7 @@ router.delete("/posts/:postId", authMiddleware, deletePost); // New route to del
 router.get("/verify-email/:token", verifyEmail);
 router.post("/forgot-password", forgotPassword);
 router.post("/reset-password/:token", resetPassword);
+
+//server ping
 
 module.exports = router;

@@ -7,7 +7,7 @@ const connectDB = require("./db/connect");
 const mainRouter = require("./routes/user");
 const cron = require("node-cron");
 const Post = require("./models/Post");
-
+const pingRouter = require("./controllers/ping");
 const app = express();
 
 // Middleware
@@ -16,7 +16,7 @@ app.use(cors());
 
 // Routes
 app.use("/api/v1", mainRouter);
-
+app.use("/api", pingRouter);
 // Cron job to delete expired posts
 cron.schedule("0 * * * *", async () => {
   try {
