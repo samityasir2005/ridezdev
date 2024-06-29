@@ -8,7 +8,7 @@ const mg = mailgun.client({
 });
 
 const sendVerificationEmail = async (email, verificationToken) => {
-  const verificationLink = `https://667f679bf102c1b43cc4e015--radiant-caramel-96dfd0.netlify.app/verify-email/${verificationToken}`;
+  const verificationLink = `urid.ca/verify-email/${verificationToken}`;
   const mailgunDomain = process.env.MAILGUN_DOMAIN || "";
 
   const htmlTemplate = `
@@ -58,7 +58,7 @@ const sendVerificationEmail = async (email, verificationToken) => {
   }
 };
 const sendResetPasswordEmail = async (email, resetToken) => {
-  const resetLink = `https://667f679bf102c1b43cc4e015--radiant-caramel-96dfd0.netlify.app/reset-password/${resetToken}`;
+  const resetLink = `urid.ca/reset-password/${resetToken}`;
   const mailgunDomain = process.env.MAILGUN_DOMAIN || "";
 
   const htmlTemplate = `
