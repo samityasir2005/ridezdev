@@ -24,8 +24,7 @@ const SupportChat = () => {
         {/* Add your chat interface here */}
         Coming soon ...
         <br></br>
-        <br></br>
-        <br></br>
+        For now, please email us at: <strong>support@urid.ca</strong>
         <br></br>
         <br></br>
         <p>Powered by GPT 4</p>

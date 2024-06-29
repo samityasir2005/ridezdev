@@ -25,7 +25,7 @@ const Dashboard = () => {
   const fetchUserPosts = async () => {
     try {
       const response = await axios.get(
-        "http://localhost:3000/api/v1/user/posts",
+        "https://ridez-backend.onrender.com/api/v1/user/posts",
         {
           headers: { Authorization: `Bearer ${token}` },
         }
@@ -39,9 +39,12 @@ const Dashboard = () => {
 
   const handleDeletePost = async (postId) => {
     try {
-      await axios.delete(`http://localhost:3000/api/v1/posts/${postId}`, {
-        headers: { Authorization: `Bearer ${token}` },
-      });
+      await axios.delete(
+        `https://ridez-backend.onrender.com/api/v1/posts/${postId}`,
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      );
       toast.success("Post deleted successfully");
       fetchUserPosts();
     } catch (error) {
