@@ -12,6 +12,7 @@ const Dashboard = () => {
   const navigate = useNavigate();
   const [activePanel, setActivePanel] = useState("userSettings");
   const [userPosts, setUserPosts] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     if (!token) {
@@ -25,7 +26,7 @@ const Dashboard = () => {
   const fetchUserPosts = async () => {
     try {
       const response = await axios.get(
-        "https://ridez-backend.onrender.com/api/v1/user/posts",
+        "http://localhost:3000/api/v1/user/posts",
         {
           headers: { Authorization: `Bearer ${token}` },
         }
@@ -34,17 +35,16 @@ const Dashboard = () => {
     } catch (error) {
       console.error(error);
       toast.error("Failed to fetch user posts");
+    } finally {
+      setLoading(false);
     }
   };
 
   const handleDeletePost = async (postId) => {
     try {
-      await axios.delete(
-        `https://ridez-backend.onrender.com/api/v1/posts/${postId}`,
-        {
-          headers: { Authorization: `Bearer ${token}` },
-        }
-      );
+      await axios.delete(`http://localhost:3000/api/v1/posts/${postId}`, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
       toast.success("Post deleted successfully");
       fetchUserPosts();
     } catch (error) {
@@ -93,7 +93,7 @@ const Dashboard = () => {
             <p>Loading user data...</p>
           )}
         </div>
-        {renderPanel()}
+        {loading ? <div className="loading-spinner"></div> : renderPanel()}
       </div>
     </div>
   );
@@ -162,7 +162,6 @@ const PostSettings = ({ userPosts, onDeletePost }) => (
             <p>Price: ${post.price}</p>
             <p>Seats Available: {post.seatsAvailable}</p>
             <p>Posted on: {new Date(post.createdAt).toLocaleString()}</p>
-            <p>Expires on: {new Date(post.expiresAt).toLocaleString()}</p>
             <button onClick={() => onDeletePost(post._id)}>Delete</button>
           </div>
         ))}

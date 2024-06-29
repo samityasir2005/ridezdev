@@ -92,7 +92,7 @@ function CreatePost() {
 
     try {
       const response = await axios.post(
-        "https://ridez-backend.onrender.com/api/v1/posts",
+        "http://localhost:3000/api/v1/posts",
         formData,
         {
           headers: {

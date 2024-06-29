@@ -43,7 +43,7 @@ const sendVerificationEmail = async (email, verificationToken) => {
   `;
 
   const mailgunData = {
-    from: `urid <noreply@${mailgunDomain}>`,
+    from: `Urid <noreply@${mailgunDomain}>`,
     to: email,
     subject: "Verify Your Email Address",
     html: htmlTemplate,
@@ -93,7 +93,7 @@ const sendResetPasswordEmail = async (email, resetToken) => {
     `;
 
   const mailgunData = {
-    from: `urid <noreply@${mailgunDomain}>`,
+    from: `Urid <noreply@${mailgunDomain}>`,
     to: email,
     subject: "Reset Your Password",
     html: htmlTemplate,

@@ -24,7 +24,7 @@ const Login = () => {
       };
       try {
         const response = await axios.post(
-          "https://ridez-backend.onrender.com/api/v1/login",
+          "http://localhost:3000/api/v1/login",
           formData
         );
         localStorage.setItem("auth", JSON.stringify(response.data.token));

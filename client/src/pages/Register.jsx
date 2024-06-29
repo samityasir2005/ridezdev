@@ -68,7 +68,7 @@ const Register = () => {
         };
         try {
           const response = await axios.post(
-            "https://ridez-backend.onrender.com/api/v1/register",
+            "http://localhost:3000/api/v1/register",
             formData
           );
           toast.success("Registration successful");
