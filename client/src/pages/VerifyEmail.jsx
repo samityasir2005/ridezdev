@@ -11,7 +11,7 @@ const VerifyEmail = () => {
     const verifyEmail = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:3000/api/v1/verify-email/${token}`
+          `https://ridez-backend.onrender.com/api/v1/verify-email/${token}`
         );
         setVerificationStatus("Email verified successfully");
         toast.success("Email verified successfully");

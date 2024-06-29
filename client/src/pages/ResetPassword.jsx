@@ -17,7 +17,7 @@ const ResetPassword = () => {
     }
     try {
       const response = await axios.post(
-        `http://localhost:3000/api/v1/reset-password/${token}`,
+        `https://ridez-backend.onrender.com/api/v1/reset-password/${token}`,
         { newPassword }
       );
       setMessage(response.data.msg);

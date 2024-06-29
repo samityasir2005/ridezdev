@@ -15,7 +15,7 @@ export const UserProvider = ({ children }) => {
       if (token) {
         try {
           const response = await axios.get(
-            "http://localhost:3000/api/v1/dashboard",
+            "https://ridez-backend.onrender.com/api/v1/dashboard",
             {
               headers: {
                 Authorization: `Bearer ${token}`,

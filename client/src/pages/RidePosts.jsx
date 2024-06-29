@@ -25,9 +25,12 @@ function RidePosts() {
   useEffect(() => {
     const fetchPosts = async () => {
       try {
-        const response = await axios.get("http://localhost:3000/api/v1/posts", {
-          headers: { Authorization: `Bearer ${token}` },
-        });
+        const response = await axios.get(
+          "https://ridez-backend.onrender.com/api/v1/posts",
+          {
+            headers: { Authorization: `Bearer ${token}` },
+          }
+        );
         setPosts(response.data.posts);
         setFilteredPosts(response.data.posts);
       } catch (error) {

@@ -11,9 +11,12 @@ const ForgotPassword = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.post("http://localhost:3000/api/v1/forgot-password", {
-        email,
-      });
+      await axios.post(
+        "https://ridez-backend.onrender.com/api/v1/forgot-password",
+        {
+          email,
+        }
+      );
       toast.success("Reset password email sent");
       setSubmitted(true);
     } catch (error) {
