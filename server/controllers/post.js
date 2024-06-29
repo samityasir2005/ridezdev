@@ -10,7 +10,6 @@ const createPost = async (req, res) => {
       price,
     } = req.body;
 
-    // Check if the user has created a post in the last hour
     const oneHourAgo = new Date();
     oneHourAgo.setHours(oneHourAgo.getHours() - 1);
 
