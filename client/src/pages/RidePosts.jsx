@@ -7,10 +7,16 @@ import Slider from "rc-slider";
 import "rc-slider/assets/index.css";
 import { Link, useNavigate } from "react-router-dom";
 import { library } from "@fortawesome/fontawesome-svg-core";
-import { faPlus } from "@fortawesome/free-solid-svg-icons";
+import {
+  faPlus,
+  faSnowflake,
+  faDog,
+  faMusic,
+  faBicycle,
+} from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-library.add(faPlus);
+library.add(faPlus, faSnowflake, faDog, faMusic, faBicycle);
 
 function RidePosts() {
   const [posts, setPosts] = useState([]);
@@ -198,10 +204,21 @@ function RidePosts() {
             <p>Date: {new Date(post.timeOfRideShare).toLocaleString()}</p>
             <p>Price: ${post.price}</p>
             <p>Seats Available: {post.seatsAvailable}</p>
-            <p>Winter Tires: {post.winterTires ? "Yes" : "No"}</p>
-            <p>Pets: {post.pets ? "Yes" : "No"}</p>
-            <p>Music: {post.music ? "Yes" : "No"}</p>
-            <p>Bikes: {post.bikes ? "Yes" : "No"}</p>
+            <p>
+              <FontAwesomeIcon icon={faSnowflake} /> Winter Tires:{" "}
+              {post.winterTires ? "Yes" : "No"}
+            </p>
+            <p>
+              <FontAwesomeIcon icon={faDog} /> Pets: {post.pets ? "Yes" : "No"}
+            </p>
+            <p>
+              <FontAwesomeIcon icon={faMusic} /> Music:{" "}
+              {post.music ? "Yes" : "No"}
+            </p>
+            <p>
+              <FontAwesomeIcon icon={faBicycle} /> Bikes:{" "}
+              {post.bikes ? "Yes" : "No"}
+            </p>
             <p>Luggage: {post.luggage}</p>
             <p>Posted on: {new Date(post.createdAt).toLocaleString()}</p>
           </div>

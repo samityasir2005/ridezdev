@@ -6,6 +6,13 @@ import { toast } from "react-toastify";
 import axios from "axios";
 import { useLoadScript, Autocomplete } from "@react-google-maps/api";
 import CurrencyInput from "react-currency-input-field";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faSnowflake,
+  faDog,
+  faMusic,
+  faBicycle,
+} from "@fortawesome/free-solid-svg-icons";
 
 const libraries = ["places"];
 
@@ -193,42 +200,54 @@ function CreatePost() {
           maxLength={6}
           className="create-post__input create-post__input--price"
         />
-        <div className="create-post__checkbox-group">
+        <div className="create-post__switch-group">
           <label>
-            <input
-              type="checkbox"
-              name="winterTires"
-              checked={formData.winterTires}
-              onChange={handleChange}
-            />
-            Winter Tires
+            <div className="create-post__switch">
+              <input
+                type="checkbox"
+                name="winterTires"
+                checked={formData.winterTires}
+                onChange={handleChange}
+              />
+              <span className="create-post__slider"></span>
+            </div>
+            <FontAwesomeIcon icon={faSnowflake} /> Winter Tires
           </label>
           <label>
-            <input
-              type="checkbox"
-              name="pets"
-              checked={formData.pets}
-              onChange={handleChange}
-            />
-            Pets
+            <div className="create-post__switch">
+              <input
+                type="checkbox"
+                name="pets"
+                checked={formData.pets}
+                onChange={handleChange}
+              />
+              <span className="create-post__slider"></span>
+            </div>
+            <FontAwesomeIcon icon={faDog} /> Pets
           </label>
           <label>
-            <input
-              type="checkbox"
-              name="music"
-              checked={formData.music}
-              onChange={handleChange}
-            />
-            Music
+            <div className="create-post__switch">
+              <input
+                type="checkbox"
+                name="music"
+                checked={formData.music}
+                onChange={handleChange}
+              />
+              <span className="create-post__slider"></span>
+            </div>
+            <FontAwesomeIcon icon={faMusic} /> Music
           </label>
           <label>
-            <input
-              type="checkbox"
-              name="bikes"
-              checked={formData.bikes}
-              onChange={handleChange}
-            />
-            Bikes
+            <div className="create-post__switch">
+              <input
+                type="checkbox"
+                name="bikes"
+                checked={formData.bikes}
+                onChange={handleChange}
+              />
+              <span className="create-post__slider"></span>
+            </div>
+            <FontAwesomeIcon icon={faBicycle} /> Bikes
           </label>
         </div>
         <select
