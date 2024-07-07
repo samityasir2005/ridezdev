@@ -120,10 +120,9 @@ function CreatePost() {
     } catch (error) {
       toast.error(error.response?.data?.msg || "Error creating post");
     } finally {
-      // Add a delay before re-enabling the button
       setTimeout(() => {
         setIsSubmitting(false);
-      }, 5000); // 5 seconds delay
+      }, 5000);
     }
   };
 
