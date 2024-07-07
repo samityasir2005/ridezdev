@@ -1,5 +1,5 @@
 .ride-posts-container {
-  max-width: 800px;
+  max-width: 1000px;
   margin: 0 auto;
   padding: 20px;
   padding-top: 12vh;
@@ -132,25 +132,51 @@
 
 .post-card {
   border: 1px solid #ddd;
-  padding: 20px;
+  padding: 10px; /* Reduced padding to make the card thinner */
   border-radius: 10px;
   background-color: #fff;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  gap: 2px; /* Reduced gap between post details */
+  width: 100%; /* Make the card stretch out */
+  max-width: 1200px; /* Set a maximum width */
+  margin: 10px auto; /* Center the card */
 }
 
-.post-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+.post-header {
+  display: flex;
 }
 
-.post-card h2 {
-  margin-top: 0;
-  font-size: 20px;
-  color: #333;
-}
-
-.post-card p {
-  margin: 5px 0;
+.post-date {
+  font-size: 14px;
   color: #666;
+}
+
+.preferences {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+}
+
+.post-footer {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.message-button {
+  padding: 8px 12px;
+  font-size: 14px;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.message-button svg {
+  margin-right: 5px;
 }

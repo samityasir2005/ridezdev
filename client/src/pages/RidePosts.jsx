@@ -13,10 +13,11 @@ import {
   faDog,
   faMusic,
   faBicycle,
+  faEnvelope,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-library.add(faPlus, faSnowflake, faDog, faMusic, faBicycle);
+library.add(faPlus, faSnowflake, faDog, faMusic, faBicycle, faEnvelope);
 
 function RidePosts() {
   const [posts, setPosts] = useState([]);
@@ -197,30 +198,42 @@ function RidePosts() {
       <div className="post-list">
         {filteredPosts.map((post) => (
           <div key={post._id} className="post-card">
-            <h2>
-              {post.destinationFrom} to {post.destinationTo}
-            </h2>
+            <div className="post-header">
+              <h2>
+                {post.destinationFrom} to {post.destinationTo}
+              </h2>
+              <p className="post-date">
+                Date: {new Date(post.timeOfRideShare).toLocaleString()}
+              </p>
+            </div>
             <p>Posted by: {post.user ? post.user.name : "Unknown User"}</p>
-            <p>Date: {new Date(post.timeOfRideShare).toLocaleString()}</p>
             <p>Price: ${post.price}</p>
             <p>Seats Available: {post.seatsAvailable}</p>
-            <p>
-              <FontAwesomeIcon icon={faSnowflake} /> Winter Tires:{" "}
-              {post.winterTires ? "Yes" : "No"}
-            </p>
-            <p>
-              <FontAwesomeIcon icon={faDog} /> Pets: {post.pets ? "Yes" : "No"}
-            </p>
-            <p>
-              <FontAwesomeIcon icon={faMusic} /> Music:{" "}
-              {post.music ? "Yes" : "No"}
-            </p>
-            <p>
-              <FontAwesomeIcon icon={faBicycle} /> Bikes:{" "}
-              {post.bikes ? "Yes" : "No"}
-            </p>
+            <div className="preferences">
+              <p>
+                <FontAwesomeIcon icon={faSnowflake} /> Winter Tires:{" "}
+                {post.winterTires ? "Yes" : "No"}
+              </p>
+              <p>
+                <FontAwesomeIcon icon={faDog} /> Pets:{" "}
+                {post.pets ? "Yes" : "No"}
+              </p>
+              <p>
+                <FontAwesomeIcon icon={faMusic} /> Music:{" "}
+                {post.music ? "Yes" : "No"}
+              </p>
+              <p>
+                <FontAwesomeIcon icon={faBicycle} /> Bikes:{" "}
+                {post.bikes ? "Yes" : "No"}
+              </p>
+            </div>
             <p>Luggage: {post.luggage}</p>
             <p>Posted on: {new Date(post.createdAt).toLocaleString()}</p>
+            <div className="post-footer">
+              <button className="message-button">
+                <FontAwesomeIcon icon={faEnvelope} /> Message
+              </button>
+            </div>
           </div>
         ))}
       </div>
