@@ -9,6 +9,10 @@ const createPost = async (req, res) => {
       seatsAvailable,
       price,
       luggage,
+      winterTires, // Add this line
+      pets, // Add this line
+      music, // Add this line
+      bikes, // Add this line
       backRowSeating,
       otherOptions,
     } = req.body;
@@ -38,6 +42,10 @@ const createPost = async (req, res) => {
       seatsAvailable,
       price,
       luggage,
+      winterTires,
+      pets,
+      music,
+      bikes,
       backRowSeating,
       otherOptions,
       expiresAt,
