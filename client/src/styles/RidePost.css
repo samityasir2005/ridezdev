@@ -130,21 +130,6 @@
   gap: 20px;
 }
 
-.post-card {
-  border: 1px solid #ddd;
-  padding: 10px;
-  border-radius: 10px;
-  background-color: #fff;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
-  width: 100%;
-  max-width: 1200px;
-  margin: 10px auto;
-}
-
 .post-header {
   display: flex;
 }

@@ -28,8 +28,7 @@ const Login = () => {
           formData
         );
         localStorage.setItem("auth", JSON.stringify(response.data.token));
-        setToken(JSON.stringify(response.data.token)); // Update the token state
-        toast.success("Login successful");
+        setToken(JSON.stringify(response.data.token));
         navigate("/dashboard");
         window.location.reload();
       } catch (err) {
@@ -54,7 +53,6 @@ const Login = () => {
 
   useEffect(() => {
     if (token !== "") {
-      toast.success("You are already logged in");
       navigate("/dashboard");
     }
   }, [token]);
