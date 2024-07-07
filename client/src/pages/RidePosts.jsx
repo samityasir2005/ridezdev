@@ -198,6 +198,11 @@ function RidePosts() {
             <p>Date: {new Date(post.timeOfRideShare).toLocaleString()}</p>
             <p>Price: ${post.price}</p>
             <p>Seats Available: {post.seatsAvailable}</p>
+            <p>Winter Tires: {post.winterTires ? "Yes" : "No"}</p>
+            <p>Pets: {post.pets ? "Yes" : "No"}</p>
+            <p>Music: {post.music ? "Yes" : "No"}</p>
+            <p>Bikes: {post.bikes ? "Yes" : "No"}</p>
+            <p>Luggage: {post.luggage}</p>
             <p>Posted on: {new Date(post.createdAt).toLocaleString()}</p>
           </div>
         ))}

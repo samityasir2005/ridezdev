@@ -135,7 +135,7 @@ const Register = () => {
               />
               <input
                 type="email"
-                placeholder="Email"
+                placeholder="Student Email"
                 name="email"
                 required={true}
               />

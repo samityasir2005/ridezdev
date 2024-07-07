@@ -18,6 +18,11 @@ function CreatePost() {
     timeOfRideShare: "",
     seatsAvailable: "1",
     price: "",
+    winterTires: false,
+    pets: false,
+    music: false,
+    bikes: false,
+    luggage: "No luggage",
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -34,8 +39,11 @@ function CreatePost() {
   }, [token, navigate]);
 
   const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
+    const { name, value, type, checked } = e.target;
+    setFormData({
+      ...formData,
+      [name]: type === "checkbox" ? checked : value,
+    });
   };
 
   const validatePrice = (price) => {
@@ -185,6 +193,56 @@ function CreatePost() {
           maxLength={6}
           className="create-post__input create-post__input--price"
         />
+        <div className="create-post__checkbox-group">
+          <label>
+            <input
+              type="checkbox"
+              name="winterTires"
+              checked={formData.winterTires}
+              onChange={handleChange}
+            />
+            Winter Tires
+          </label>
+          <label>
+            <input
+              type="checkbox"
+              name="pets"
+              checked={formData.pets}
+              onChange={handleChange}
+            />
+            Pets
+          </label>
+          <label>
+            <input
+              type="checkbox"
+              name="music"
+              checked={formData.music}
+              onChange={handleChange}
+            />
+            Music
+          </label>
+          <label>
+            <input
+              type="checkbox"
+              name="bikes"
+              checked={formData.bikes}
+              onChange={handleChange}
+            />
+            Bikes
+          </label>
+        </div>
+        <select
+          name="luggage"
+          value={formData.luggage}
+          onChange={handleChange}
+          required
+          className="create-post__input create-post__input--luggage"
+        >
+          <option value="No luggage">No luggage</option>
+          <option value="S">Small</option>
+          <option value="M">Medium</option>
+          <option value="L">Large</option>
+        </select>
         <button
           type="submit"
           className="create-post__submit-btn"

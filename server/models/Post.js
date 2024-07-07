@@ -16,6 +16,27 @@ const PostSchema = new mongoose.Schema({
     type: Date,
     default: Date.now,
   },
+  winterTires: {
+    type: Boolean,
+    default: false,
+  },
+  pets: {
+    type: Boolean,
+    default: false,
+  },
+  music: {
+    type: Boolean,
+    default: false,
+  },
+  bikes: {
+    type: Boolean,
+    default: false,
+  },
+  luggage: {
+    type: String,
+    enum: ["No luggage", "S", "M", "L"],
+    default: "No luggage",
+  },
 });
 
 module.exports = mongoose.model("Post", PostSchema);
